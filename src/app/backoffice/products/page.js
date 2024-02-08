@@ -37,7 +37,7 @@ const ProductBackOffice = () => {
 
     return (
         <div className="container mx-auto">
-            <TitlePage title="Liste des utilisateurs" />
+            <TitlePage title="Liste des produits" />
             <div className="min-h-screen">
                 <div className="mb-8">
                     <ProductTable data={productsList} type="product" handleDelete={handleDeleteProduct} />
