@@ -1,9 +1,6 @@
 'use client';
-
-import TitlePage from "@/components/UI/TitlePage";
 import Input from '@/components/UI/Input';
 import Button from '@/components/UI/Button';
-
 import { useState } from 'react';
 
 const LoginFormAdmin = () => {
@@ -18,12 +15,16 @@ const LoginFormAdmin = () => {
 
     const submit = async (e) => {
         e.preventDefault();
-        console.log(userForm.email, userForm.password);
+        if (userForm.email === 'your.email@example.com' && userForm.password === 'your_password') {
+            window.location.href = '/backoffice/home';
+        } else {
+            window.location.href = '/';
+        }
     }
 
     return (
         <div className="container mx-auto bg-gray-100">
-            <div className="min-h-screen flex items-center justify-center bg-gray-100 align-center">
+            <div className="min-h-screen flex items-center justify-center bg-gray-100">
                 <div className="bg-white p-8 rounded shadow-md w-96 xl:w-1/3">
                     <h2 className="text-2xl font-bold mb-6">Login Administrateur</h2> 
                     <form onSubmit={(e)=> submit(e)}>
@@ -40,6 +41,3 @@ const LoginFormAdmin = () => {
 };
 
 export default LoginFormAdmin;
-
-
-

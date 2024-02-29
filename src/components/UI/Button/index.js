@@ -1,12 +1,12 @@
-const Index = ({ type, title }) => {
+const Index = ({ title, onClick, className }) => {
     return (
-        <button
-            type={type}
-            className="w-full bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600 focus:outline-none"
-        >
-            {title}
-        </button>
+      <button
+        className={className || "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"}
+        onClick={onClick}
+      >
+        {title}
+      </button>
     );
-};
+  };
 
 export default Index;

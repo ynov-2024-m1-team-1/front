@@ -1,0 +1,23 @@
+[
+    {
+        "name":"Produits",
+        "path":"/backoffice/products"
+    },
+    {
+        "name":"Utilisateurs",
+        "path":"/backoffice/users"
+    },
+    {
+        "name":"Commandes",
+        "path":"/backoffice/orders"
+    },
+    {
+        "name":"Statistiques",
+        "path":"/backoffice/stats"
+    },
+    {
+        "name":"Paramètres",
+        "path":"/backoffice/settings"
+    }
+
+]
