@@ -28,7 +28,7 @@ const ProductBackOffice = () => {
             <TitlePage title="Liste des produits" />
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error.message}</p>}
-            {data && (
+            {!data && (
                 <div>
                     <p>Type of Error: {typeofError}</p>
                 </div>
