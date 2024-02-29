@@ -11,6 +11,11 @@ const Index = () => {
         admin: true,
     }
 
+    // vérifier si dans le local storage il y a un token dans la page login stocker le token
+    
+    // si token connecter alors vérification si admin ou pas
+    // sinon pas connecter alors pas le menu admin
+    
     return (
         <header className="bg-white border-b border-color-black">
             {userAgent.admin ? (

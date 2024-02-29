@@ -15,7 +15,11 @@ const LoginFormAdmin = () => {
 
     const submit = async (e) => {
         e.preventDefault();
-        console.log(userForm.email, userForm.password);
+        if (userForm.email === 'your.email@example.com' && userForm.password === 'your_password') {
+            window.location.href = '/backoffice/home';
+        } else {
+            window.location.href = '/';
+        }
     }
 
     return (
@@ -37,6 +41,3 @@ const LoginFormAdmin = () => {
 };
 
 export default LoginFormAdmin;
-
-
-

@@ -2,7 +2,7 @@
 import TitlePage from "@/components/UI/TitlePage";
 import React, { useState, useEffect } from "react";
 import UserTable from "@/components/UI/Table";
-// import { getUsers, deleteUser } from "@/services/api/user.api";
+import useFetch from "@/hooks/useFetch";
 
 const UserBackOffice = () => {
 
@@ -14,7 +14,7 @@ const UserBackOffice = () => {
     }); 
 
     useEffect(() => {
-        fetchUsers();
+        fetchData();
     }, []);
 
     const handleDeleteUser = (userId) => {
