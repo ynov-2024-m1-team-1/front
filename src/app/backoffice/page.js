@@ -1,9 +1,6 @@
 'use client';
-
-import TitlePage from "@/components/UI/TitlePage";
 import Input from '@/components/UI/Input';
 import Button from '@/components/UI/Button';
-
 import { useState } from 'react';
 
 const LoginFormAdmin = () => {
