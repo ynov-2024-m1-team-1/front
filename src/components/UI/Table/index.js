@@ -4,7 +4,9 @@ import Button from "@/components/UI/Button";
 
 const Table = ({ data, type, handleDelete }) => {
 
-    if (!data || data.length === 0) {
+    const items = data?.data;
+
+    if (!items || items.length === 0) {
         return <div>Aucune donnée à afficher</div>;
     }
 
@@ -15,7 +17,7 @@ const Table = ({ data, type, handleDelete }) => {
                     <thead>
                         <tr >
                             <th style={{ border: '1px solid black', padding: '8px' }}>Id</th>
-                            <th style={{ border: '1px solid black', padding: '8px' }}>Nom d'utilisateur</th>
+                            <th style={{ border: '1px solid black', padding: '8px' }}>Nom Utilisateur</th>
                             <th style={{ border: '1px solid black', padding: '8px' }}>Email</th>
                         </tr>
                     </thead>
@@ -52,9 +54,9 @@ const Table = ({ data, type, handleDelete }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map(item => (
-                            <tr key={item.id}>
-                                <td style={{ border: '1px solid black', padding: '8px' }}>{item.id}</td>
+                        {items.map(item => (
+                            <tr key={item._id}>
+                                <td style={{ border: '1px solid black', padding: '8px' }}>{item._id}</td>
                                 <td style={{ border: '1px solid black', padding: '8px' }}>{item.name}</td>
                                 <td style={{ border: '1px solid black', padding: '8px' }}>{item.description}</td>
                                 <td style={{ border: '1px solid black', padding: '8px' }}>{item.image}</td>
@@ -62,12 +64,12 @@ const Table = ({ data, type, handleDelete }) => {
                                 <td style={{ border: '1px solid black', padding: '8px' }}>{item.packshot}</td>
                                 <td style={{ border: '1px solid black', padding: '8px' }}>{item.price}</td>
                                 <td style={{ border: '1px solid black', padding: '8px' }}>
-                                    <Link href={`/backoffice/products/${item.id}`}>
+                                    <Link href={`/backoffice/products/${item._id}` }>
                                         <Button title="Modifier" />
                                     </Link>
                                 </td>
                                 <td style={{ border: '1px solid black', padding: '8px' }}>
-                                    <Button onClick={() => handleDelete(item.id)} title="Supprimer" />
+                                    <Button onClick={() => handleDelete(item._id)} title="Supprimer" />
                                 </td>
                             </tr>
                         ))}

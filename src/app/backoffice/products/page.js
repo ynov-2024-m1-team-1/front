@@ -1,31 +1,19 @@
 "use client";
 
 import TitlePage from "@/components/UI/TitlePage";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ProductTable from "@/components/UI/Table";
-
-
+import useFetch from "@/hooks/useFetch";
 
 const ProductBackOffice = () => {
-    const [productsList, setProductsList] = useState([]);
-
-    const product = [
-        {id: 1, name: "Nom du produit", description: "Description du produit", image: "Image du produit", active: "Actif", packshot: "Packshot du produit", price: "Prix du produit"},
-        {id: 2, name: "Nom du produit", description: "Description du produit", image: "Image du produit", active: "Actif", packshot: "Packshot du produit", price: "Prix du produit"},
-        {id: 3, name: "Nom du produit", description: "Description du produit", image: "Image du produit", active: "Actif", packshot: "Packshot du produit", price: "Prix du produit"},
-    ];
+    const { fetchData, data, error, loading, typeofError } = useFetch({
+        url: "/products",
+        method: "GET",
+        body: null,
+        token: null,
+    });
 
     useEffect(() => {
-        // Fetch data from API or use static data
-        const fetchData = async () => {
-            try {
-                // const response = await getProducts();
-                // setProducts(response);
-                setProductsList(product);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
         fetchData();
     }, []);
 
@@ -38,9 +26,20 @@ const ProductBackOffice = () => {
     return (
         <div className="container mx-auto">
             <TitlePage title="Liste des produits" />
+            {loading && <p>Loading...</p>}
+            {error && <p>Error: {error.message}</p>}
+            {data && (
+                <div>
+                    <p>Type of Error: {typeofError}</p>
+                </div>
+            )}
             <div className="min-h-screen">
                 <div className="mb-8">
-                    <ProductTable data={productsList} type="product" handleDelete={handleDeleteProduct} />
+                    <ProductTable
+                        data={data}
+                        type="product"
+                        handleDelete={handleDeleteProduct}
+                    />
                 </div>
             </div>
         </div>
