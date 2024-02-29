@@ -77,7 +77,7 @@ const Table = ({ data, type, handleDelete }) => {
                                     <td className="px-6 py-4 text-red-500 dark:text-red-400">Inactif</td>
                                 )}
                                 <td className="px-6 py-4">{item.packshot}</td>
-                                <td className="px-6 py-4">{item.price}</td>
+                                <td className="px-6 py-4">{item.price}€</td>
                                 <td className="px-6 py-4">
                                     <div className="inline-flex space-x-4">
                                         <Link href={`/backoffice/products/${item._id}`}>
