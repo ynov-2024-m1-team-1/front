@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ModifyForm = (ditem) => {
+const ModifyForm = (item) => {
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -19,24 +19,13 @@ const ModifyForm = (ditem) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-        />
+      <label>Name:
+        <input type="text" name="name" value={formData.name}onChange={handleChange}/>
       </label>
       <br />
       <label>
         Price:
-        <input
-          type="number"
-          name="price"
-          value={formData.price}
-          onChange={handleChange}
-        />
+        <input type="number" name="price" value={formData.price} onChange={handleChange}/>
       </label>
       <br />
       <label>

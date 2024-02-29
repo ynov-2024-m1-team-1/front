@@ -15,7 +15,10 @@ const useFetch = ({ url, method, body, token }) => {
                 {
                     method: method,
                     headers: {
-                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Headers" : "Content-Type",
+                        "Access-Control-Allow-Origin": "*",
+                        'Content-Type': 'application/json',
+                        "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH",            
                         ...(token && { authorization: token }),
                     },
                     ...(body && { body: JSON.stringify(body) }),
