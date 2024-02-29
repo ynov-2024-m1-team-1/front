@@ -1,7 +1,7 @@
-const Index = ({ title, onClick }) => {
+const Index = ({ title, onClick, className }) => {
     return (
       <button
-        className="w-full bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600 focus:outline-none"
+        className={className || "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"}
         onClick={onClick}
       >
         {title}
