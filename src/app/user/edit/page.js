@@ -16,8 +16,12 @@ const Details = () => {
         postalCode: "75000",
     }
 
-    const handleClick = () => {
+    const handleSave = () => {
         console.log("Save profile");
+    }
+
+    const handleDelete = () => {
+        console.log("Delete profile");
     }
 
     return (
@@ -35,7 +39,8 @@ const Details = () => {
                         </div>
                         <div className="flex flex-col justify-center items-center">
                             <Image src="/user.png" alt="profile picture" width={128} height={128} />
-                            <button className="bg-blue-500 text-white rounded p-2 mt-4 hover:bg-blue-700" onClick={handleClick}>Save profile</button>
+                            <button className="bg-blue-500 text-white rounded p-2 mt-4 hover:bg-blue-700" onClick={handleSave}>Save profile</button>
+                            <button className="bg-red-500 text-white rounded p-2 mt-4 hover:bg-red-700" onClick={handleDelete}>Delete account</button>
                         </div>
                     </div>
                 </div>
