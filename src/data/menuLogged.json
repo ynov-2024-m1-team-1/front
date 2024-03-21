@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Home",
+        "path": "/"
+    },
+    {
+        "name": "Shop",
+        "path": "/shop"
+    },
+    {
+        "name": "Contact",
+        "path": "/contact"
+    },
+    {
+        "name": "About",
+        "path": "/about"
+    },
+    {
+        "name": "Profile",
+        "path": "/profile"
+    },
+    {
+        "name": "Cart",
+        "path": "/cart"
+    }
+]
