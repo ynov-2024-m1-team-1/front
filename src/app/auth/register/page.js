@@ -78,7 +78,7 @@ const RegisterForm = () => {
                     <br />
                     <br />
                     <div className="flex justify-end">
-                      <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-40 rounded" type={'submit'} title={'Register'}/>
+                      <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded" type={'submit'} title={'Register'}/>
                     </div>
                 </form>
             </div>
