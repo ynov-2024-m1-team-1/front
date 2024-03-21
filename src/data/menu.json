@@ -8,6 +8,10 @@
     "path": "/shop"
   },
   {
+    "name": "Whishlist",
+    "path": "/whishlist"
+  },
+  {
     "name": "Contact",
     "path": "/contact"
   },
