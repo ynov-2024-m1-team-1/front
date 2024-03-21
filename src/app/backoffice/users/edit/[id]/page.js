@@ -1,13 +1,10 @@
 'use client'
 import React from "react";
-import UserDetail from "@/components/user/UserDetail";
+import UserDetailEdit from "@/components/user/UserDetailEdit";
 import Image from 'next/image';
-import { useRouter } from "next/navigation";
 
 
 const Details = () => {
-
-    const router = useRouter();
 
     const fakeData = {
         name: "John",
@@ -19,8 +16,8 @@ const Details = () => {
         postalCode: "75000",
     }
 
-    const handleClick = () => {
-        router.push('/user/edit');
+    const handleSave = () => {
+        console.log("Save profile");
     }
 
     return (
@@ -32,13 +29,13 @@ const Details = () => {
                         <div className="grid grid-flow-row gap-4">
                             {Object.keys(fakeData).map((key, index) => {
                                 return (
-                                    <UserDetail keyName={key} key={index} data={fakeData[key]} />
+                                    <UserDetailEdit keyName={key} key={index} data={fakeData[key]} />
                                 );
                             })}
                         </div>
                         <div className="flex flex-col justify-center items-center">
                             <Image src="/user.png" alt="profile picture" width={128} height={128} />
-                            <button className="bg-blue-500 text-white rounded p-2 mt-4 hover:bg-blue-700" onClick={handleClick}>Edit profile</button>
+                            <button className="bg-blue-500 text-white rounded p-2 mt-4 hover:bg-blue-700" onClick={handleSave}>Save profile</button>
                         </div>
                     </div>
                 </div>
