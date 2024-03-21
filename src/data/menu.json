@@ -14,5 +14,13 @@
   {
     "name": "About",
     "path": "/about"
+  },
+  {
+    "name": "Cart",
+    "path": "/cart"
+  },
+  {
+    "name": "Login",
+    "path": "/auth/login"
   }
 ]

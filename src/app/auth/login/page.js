@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useState } from "react";
 import Input from '@/components/UI/Input';
 import Button from '@/components/UI/Button';
@@ -49,8 +49,14 @@ const Login = () => {
                     <br/>
                     <Input label={'Mot de passe'} name={'password'} value={password} placeholder={'password'} type={'password'} onChange={(e) => setPassword(e.target.value)} />
                     <br/>
+                    <p className="" >Pas encore de compte ?</p>
+                    <a className="text-blue-500" href="register">Inscrivez-vous</a>
+                    <br />
                     {error && <p className="text-red-500">{error}</p>}
-                    <Button type={'submit'} title={'Connexion'}/>
+                    <br/>
+                    <div className="flex justify-end">
+                      <Button type={'submit'} title={'Connexion'}/>
+                    </div>
                 </form>
             </div>
         </div>

@@ -8,7 +8,7 @@ import menuAdmin from "@/data/menuAdmin.json";
 
 const Index = () => {
     const userAgent = {
-        admin: true,
+        admin: false,
     }
 
     // vérifier si dans le local storage il y a un token dans la page login stocker le token
