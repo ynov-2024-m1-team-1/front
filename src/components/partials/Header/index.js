@@ -31,7 +31,7 @@ const Index = () => {
     const logout = () => {
         localStorage.removeItem("token");
         setUserToken(null);
-        router.push("/");
+        router.push("/shop");
     };
 
     return (
@@ -60,6 +60,7 @@ const Index = () => {
                             <Link href="auth/login" className='text-md font-normal leading-6 text-base hover:text-slate-500'>
                                 Login
                             </Link>
+                            
                         )}
                     </div>
                 </li>
