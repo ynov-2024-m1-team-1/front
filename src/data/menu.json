@@ -18,9 +18,5 @@
   {
     "name": "Cart",
     "path": "/cart"
-  },
-  {
-    "name": "Login",
-    "path": "/auth/login"
   }
 ]
