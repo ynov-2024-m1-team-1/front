@@ -9,9 +9,9 @@ export async function login(data) {
     }
 }
 
-export async function getUser() {
+export async function register(data) {
     try {
-        const response = await api.get("/users/get/");
+        const response = await api.post("/auth/register", data);
         return response.data;
     } catch (error) {
         throw error;

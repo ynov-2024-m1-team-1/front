@@ -7,11 +7,11 @@ import { useRouter } from 'next/navigation'
 
 
 const Login = () => {
-  const [mail, setEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [token, setToken] = useState();
+  const [token, setToken] = useState("");
 
   const router = useRouter(); 
 
@@ -30,9 +30,9 @@ const Login = () => {
 
   const fetchUser = async () => {
     try {
-      const response = await login({ mail, password });
+      const response = await login({ email, password });
       if (response.code === 200) {
-        setToken(response.token);
+        setToken(response.data);
         return;
       } 
       setError(response.message);
@@ -60,7 +60,7 @@ const Login = () => {
             <div className="bg-white p-8 rounded shadow-md w-96 xl:w-1/3">
                 <h2 className="text-2xl font-bold mb-6">Connexion</h2> 
                 <form onSubmit={submitLogin}>
-                    <Input label={'Email'} name={'email'} value={mail} placeholder={'email'} type={'email'} onChange={(e) => setEmail(e.target.value)} />
+                    <Input label={'Email'} name={'email'} value={email} placeholder={'email'} type={'email'} onChange={(e) => setEmail(e.target.value)} />
                     <br/>
                     <Input label={'Mot de passe'} name={'password'} value={password} placeholder={'password'} type={'password'} onChange={(e) => setPassword(e.target.value)} />
                     <br/>
