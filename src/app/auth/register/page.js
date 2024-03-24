@@ -68,10 +68,10 @@ const RegisterForm = () => {
                 <form onSubmit={submitRegister}>
                     <div className="flex">
                       <div className="justify-start">
-                        <Input label={'FirstName'} name={'name'} value={userForm.name} placeholder={'firstname'} type={'text'} onChange={handleChange} />
+                        <Input label={'Name'} name={'name'} value={userForm.name} placeholder={'name'} type={'text'} onChange={handleChange} />
                       </div>
                       <div className="justify-end">
-                        <Input label={'LastName'} name={'surname'} value={userForm.surname} placeholder={'lastname'} type={'text'} onChange={handleChange} />
+                        <Input label={'Surname'} name={'surname'} value={userForm.surname} placeholder={'surname'} type={'text'} onChange={handleChange} />
                       </div>
                     </div>
                     <Input label={'Email'} name={'email'} value={userForm.email} placeholder={'email'} type={'email'} onChange={handleChange} />

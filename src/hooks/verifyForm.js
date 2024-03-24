@@ -44,12 +44,12 @@ export const isValidForm = (inputs) => {
   return errors;
 }
 
-const isValidEmail = (email) => {
+export const isValidEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
 
-const isValidPhone = (phone) => {
+export const isValidPhone = (phone) => {
   const phoneRegex = /^[0-9]{10}$/;
   return phoneRegex.test(phone);
 }
