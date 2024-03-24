@@ -48,12 +48,6 @@ const Login = () => {
     fetchUser();
   };
  
-  const logout = () => {
-    localStorage.removeItem("token");
-    setLoggedIn(false);
-  }
-
-
   return (
     <div className="container mx-auto bg-gray-100">
         <div className="min-h-screen flex items-center justify-center bg-gray-100">

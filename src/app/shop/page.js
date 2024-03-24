@@ -11,18 +11,18 @@ export default async function Page({
 
     const { take = 8 } = searchParams || {};
 
-    const products = await getProducts(take);
+    const response = await getProducts(take);
 
-    if (!products.data || products.success === false) return <Alert message={products.message} type="error" />;
+    if (!response.data || response.success === false) return <Alert message={response.message} type="error" />;
 
     return (
         <div className="container mx-auto">
             <TitlePage title="Shop" />
-            <ProductsCounter productsLength={products.data.length} />
-            <ProductsGrid products={products.data} />
+            <ProductsCounter productsLength={response.data.length} />
+            <ProductsGrid products={response.data.products} />
             <div className="flex justify-center mb-24">
                 {
-                    Number(take) <= products.data.length && (
+                    Number(take) <= response.data.length && (
                         <Link
                             className="transition ease-in-out delay-150 mt-4 inline-flex items-center px-4 py-3 text-sm border border-slate-500 font-medium text-center text-slate-500 bg-white hover:bg-slate-500 hover:text-white"
                             href={`/shop?take=${(Number(take) + 8)}`}

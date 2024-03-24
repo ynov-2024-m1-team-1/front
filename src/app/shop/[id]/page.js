@@ -21,6 +21,9 @@ export default function Page() {
     const [showFancyBox, setShowFancyBox] = useState(false);
     const [error, setError] = useState(null);
 
+    console.log(id);
+    console.log(product);
+
     useEffect(() => {
         const fetchProduct = async () => {
             setLoading(true);
@@ -42,16 +45,16 @@ export default function Page() {
         }
     }, [id]);
 
-    useEffect(() => {
-        const fetchPlaceholderImage = async () => {
-            const placeholder = await getBase64(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.thumbnail}`);
-            setPlaceholderImage(placeholder);
-        }
-        if (product) {
-            setSelectedImage(product.thumbnail);
-            fetchPlaceholderImage();
-        }
-    }, [product]);
+    // useEffect(() => {
+    //     const fetchPlaceholderImage = async () => {
+    //         const placeholder = await getBase64(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.thumbnail}`);
+    //         setPlaceholderImage(placeholder);
+    //     }
+    //     if (product) {
+    //         setSelectedImage(product.thumbnail);
+    //         fetchPlaceholderImage();
+    //     }
+    // }, [product]);
 
     if (loading) return <Loader />;
 
@@ -87,24 +90,24 @@ export default function Page() {
                     />
                 )
             }
-            <BreadCrumb current_page={product?.name} />
+            <BreadCrumb current_page={product?.products.name} />
             <div className="flex">
                 <div className="thumbnail lg:flex-1">
                     <div
                         onClick={() => setShowFancyBox(true)}
                         className="group/show w-4/5 h-[550px] overflow-hidden cursor-pointer">
-                        <Image
+                        {/* <Image
                             blurDataURL={placehodlerImage}
                             className="object-cover h-full w-full group-hover/show:scale-105 transition ease-in-out delay-150 z-1"
                             alt={product.name}
                             src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${selectedImage}`}
                             width={500}
                             height={500}
-                        />
+                        /> */}
                     </div>
                     <div className="carousel flex mt-4 overflow-hidden">
                         <div className="item w-[100px] h-[100px] mr-2">
-                            <Image
+                            {/* <Image
                                 className="cursor-pointer object-cover h-full w-full "
                                 alt={product.name}
                                 src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.thumbnail}`}
@@ -118,10 +121,10 @@ export default function Page() {
                                     setSelectedImage(product.thumbnail);
                                     setSlideIndex(0);
                                 }}
-                            />
+                            /> */}
                         </div>
                         <div className="item w-[100px] h-[100px]">
-                            <Image
+                            {/* <Image
                                 className="cursor-pointer object-cover h-full w-full"
                                 alt={product.name}
                                 src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.packshot}`}
@@ -135,14 +138,14 @@ export default function Page() {
                                     setSelectedImage(product.packshot);
                                     setSlideIndex(1);
                                 }}
-                            />
+                            /> */}
                         </div>
                     </div>
                 </div>
                 <div className="content lg:flex-1 p-6">
-                    <TitlePage title={product.name} />
-                    <p className="mb-3 font-semibold text-lg">{product.price} €</p>
-                    <p className="leading-7">{product.description}</p>
+                    <TitlePage title={product.products.name} />
+                    <p className="mb-3 font-semibold text-lg">{product.products.price} €</p>
+                    <p className="leading-7">{product.products.description}</p>
                 </div>
             </div>
         </div>
