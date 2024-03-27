@@ -40,7 +40,10 @@ const Index = () => {
                 <li className="flex lg:flex-1">
                     <Link href="/backoffice">
                         <span className="font-semibold text-2xl font-bold">
-                            BackOffice - mystore.
+                            {
+                                isAdmin ? "BackOffice - Admin" : 
+                                "mystore"
+                            }
                         </span>
                     </Link>
                 </li>
