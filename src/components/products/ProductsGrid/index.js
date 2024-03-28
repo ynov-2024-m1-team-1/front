@@ -1,4 +1,6 @@
+'use client'
 import ProductCard from "@/components/products/ProductCard";
+import React from "react";
 
 const Index = ({products}) => {
   return (

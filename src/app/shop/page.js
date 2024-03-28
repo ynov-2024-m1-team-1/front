@@ -11,7 +11,8 @@ export default async function Page({
 
     const { take = 8 } = searchParams || {};
 
-    const products = await getProducts(take);
+    const rawProducts = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/products?take=${take}`);
+    const products = await rawProducts.json();
 
     if (!products.data || products.success === false) return <Alert message={products.message} type="error" />;
 
@@ -19,7 +20,7 @@ export default async function Page({
         <div className="container mx-auto">
             <TitlePage title="Shop" />
             <ProductsCounter productsLength={products.data.length} />
-            <ProductsGrid products={products.data} />
+            <ProductsGrid products={products.data.products} />
             <div className="flex justify-center mb-24">
                 {
                     Number(take) <= products.data.length && (
