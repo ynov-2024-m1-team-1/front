@@ -123,4 +123,36 @@ const Cart = () => {
     );
 };
 
+// Separate component for each cart item
+const CartItem = ({ item, removeItemFromCart }) => {
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => { 
+    // Fetch product details when component mounts
+    fetchProduct(item.id);
+  }, [item.id]);
+
+  const fetchProduct = async (productId) => {
+    try {
+      const response = await getProduct(productId);
+      setProduct(response.data); // Assuming response.data contains product details
+    } catch (error) {
+      console.error("Error fetching product:", error);
+    }
+  };
+
+  return (
+    <li>
+      {product ? (
+        <>
+          {product.name} - ${product.price}
+          <button onClick={() => removeItemFromCart(item.id)}>Remove</button>
+        </>
+      ) : (
+        <p>Loading product details...</p>
+      )}
+    </li>
+  );
+};
+
 export default Cart;

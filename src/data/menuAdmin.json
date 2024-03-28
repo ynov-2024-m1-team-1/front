@@ -12,11 +12,11 @@
         "path": "/backoffice/orders"
     },
     {
-        "name": "Statistiques",
-        "path": "/backoffice/stats"
+        "name": "Shop",
+        "path": "/shop"
     },
     {
-        "name": "Paramètres",
-        "path": "/backoffice/settings"
+        "name": "Panier",
+        "path": "/cart"
     }
 ]

@@ -2,21 +2,11 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { addItemToCart } from '@/services/cart/cart';
 import Button from '@/components/UI/Button';
 
 
 const Index = ({ product }) => {
-
-    const addItemToCart = (product) => {
-        try {
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-            localStorage.setItem("cart", JSON.stringify([...cart, product._id]));
-        } catch (error) {
-            console.error("Error adding item to cart:", error);
-        }
-    };
-
-
     return (
         <div className="group/card max-w-sm bg-white rounded-lg">
             <Link className="group/thumbnail thumbnail" href={`/shop/${product._id}`}>
@@ -47,7 +37,7 @@ const Index = ({ product }) => {
                         Voir le produit
                     </Link>
                 </div>
-                <Button className='bg-black text-white px-4 py-2 border border-white rounded-full hover:bg-white hover:text-black hover:border-black transition ease-in-out delay-150' onClick={() => addItemToCart(product)} title="Ajouter au panier" />
+                <Button className='bg-black text-white px-4 py-2 border border-white rounded-full hover:bg-white hover:text-black hover:border-black transition ease-in-out delay-150' onClick={addItemToCart(product._id)} title="Ajouter au panier" />
             </div>
         </div>
     );
