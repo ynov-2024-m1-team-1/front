@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { getProducts } from "@/services/api/product.api.js";
 import Alert from "@/components/UI/Alert";

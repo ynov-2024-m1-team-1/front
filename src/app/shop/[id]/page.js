@@ -1,17 +1,19 @@
 "use client";
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { useParams } from 'next/navigation'
-import { getProduct } from '@/services/api/product.api.js';
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import { getProduct } from "@/services/api/product.api.js";
 import BreadCrumb from "@/components/UI/Breadcrumb";
-import TitlePage from '@/components/UI/TitlePage';
+import TitlePage from "@/components/UI/TitlePage";
 import ProductFancyBox from "@/components/products/ProductFancyBox";
 import Loader from "@/components/UI/Loader";
 import Alert from "@/components/UI/Alert";
-import { getBase64 } from '../../../lib/base64';
+import { getBase64 } from "../../../lib/base64";
+import SuccessPopup from "@/components/UI/Popup";
+import { addToWishlist } from "@/services/api/wishlist.api";
+
 
 export default function Page() {
-
     const { id } = useParams();
     const [selectedImage, setSelectedImage] = useState(null);
     const [placehodlerImage, setPlaceholderImage] = useState(null);
@@ -20,6 +22,7 @@ export default function Page() {
     const [slideIndex, setSlideIndex] = useState(0);
     const [showFancyBox, setShowFancyBox] = useState(false);
     const [error, setError] = useState(null);
+    const [showSuccess, setShowSuccess] = useState(false);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -29,14 +32,12 @@ export default function Page() {
                 if (product) {
                     setProduct(product.data);
                 }
-            }
-            catch (err) {
-                setError(err)
-            }
-            finally {
+            } catch (err) {
+                setError(err);
+            } finally {
                 setLoading(false);
             }
-        }
+        };
         if (id) {
             fetchProduct();
         }
@@ -44,9 +45,11 @@ export default function Page() {
 
     useEffect(() => {
         const fetchPlaceholderImage = async () => {
-            const placeholder = await getBase64(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.thumbnail}`);
+            const placeholder = await getBase64(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.thumbnail}`
+            );
             setPlaceholderImage(placeholder);
-        }
+        };
         if (product) {
             setSelectedImage(product.thumbnail);
             fetchPlaceholderImage();
@@ -56,41 +59,46 @@ export default function Page() {
     if (loading) return <Loader />;
 
     const goToNextSlide = () => {
-        setSelectedImage(slideIndex === 0 ? product.packshot : product.thumbnail);
+        setSelectedImage(
+            slideIndex === 0 ? product.packshot : product.thumbnail
+        );
         setSlideIndex(slideIndex === 0 ? 1 : 0);
-    }
+    };
 
     const goToPrevSlide = () => {
-        setSelectedImage(slideIndex === 0 ? product.packshot : product.thumbnail);
+        setSelectedImage(
+            slideIndex === 0 ? product.packshot : product.thumbnail
+        );
         setSlideIndex(slideIndex === 0 ? 1 : 0);
-    }
+    };
+
+    const handleAddToWishlist = async () => {
+        try {
+            const result = await addToWishlist(product.id);
+            setShowSuccess(true);
+        } catch (error) {
+            setError(err);
+        }
+    };
 
     return (
         <div className="container mx-auto py-12">
-            {
-                error && (
-                    <Alert message={error.message} type="error" />
-                )
-            }
-            {
-                !product && (
-                    <Alert message="No products found" type="error" />
-                )
-            }
-            {
-                showFancyBox && (
-                    <ProductFancyBox
-                        img={selectedImage}
-                        prevSlide={() => goToPrevSlide()}
-                        nextSlide={() => goToNextSlide()}
-                        close={() => { setShowFancyBox(false) }}
-                    />
-                )
-            }
+            {error && <Alert message={error.message} type="error" />}
+            {!product && <Alert message="No products found" type="error" />}
+            {showFancyBox && (
+                <ProductFancyBox
+                    img={selectedImage}
+                    prevSlide={() => goToPrevSlide()}
+                    nextSlide={() => goToNextSlide()}
+                    close={() => {
+                        setShowFancyBox(false);
+                    }}
+                />
+            )}
             <BreadCrumb current_page={product?.name} />
             <div className="flex">
                 <div className="thumbnail lg:flex-1">
-                    <div
+                    {/* <div
                         onClick={() => setShowFancyBox(true)}
                         className="group/show w-4/5 h-[550px] overflow-hidden cursor-pointer">
                         <Image
@@ -101,10 +109,10 @@ export default function Page() {
                             width={500}
                             height={500}
                         />
-                    </div>
+                    </div> */}
                     <div className="carousel flex mt-4 overflow-hidden">
-                        <div className="item w-[100px] h-[100px] mr-2">
-                            <Image
+                        {/* <div className="item w-[100px] h-[100px] mr-2"> */}
+                        {/* <Image
                                 className="cursor-pointer object-cover h-full w-full "
                                 alt={product.name}
                                 src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.thumbnail}`}
@@ -136,14 +144,29 @@ export default function Page() {
                                     setSlideIndex(1);
                                 }}
                             />
-                        </div>
+                        </div>*/}
                     </div>
                 </div>
-                <div className="content lg:flex-1 p-6">
-                    <TitlePage title={product.name} />
-                    <p className="mb-3 font-semibold text-lg">{product.price} €</p>
-                    <p className="leading-7">{product.description}</p>
-                </div>
+                {product && (
+                    <div className="content lg:flex-1 p-6">
+                        {/* <TitlePage title={product.name} /> */}
+                        {/* <p className="mb-3 font-semibold text-lg">{product.price} €</p>
+                    <p className="leading-7">{product.description}</p> */}
+                        <button
+                            className="transition ease-in-out delay-150 mt-4 inline-flex items-center px-4 py-3 text-sm border border-slate-500 font-medium text-center text-slate-500 bg-white hover:bg-slate-500 hover:text-white"
+                            onClick={handleAddToWishlist}
+                        >
+                            Ajouter le produit à la wishlist
+                        </button>
+                        {showSuccess && (
+                            <SuccessPopup
+                                message="Produit ajouté à la wishlist avec succès!"
+                                onClose={() => setShowSuccess(false)}
+                                duration={3000}
+                            />
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     );
