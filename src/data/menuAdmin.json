@@ -12,11 +12,8 @@
         "path": "/backoffice/orders"
     },
     {
-        "name": "Statistiques",
-        "path": "/backoffice/stats"
-    },
-    {
-        "name": "Paramètres",
-        "path": "/backoffice/settings"
-    }
+        "name": "Shop",
+        "path": "/shop"
+      }
+
 ]
