@@ -6,21 +6,11 @@ import useFetch from "@/hooks/useFetch";
 import { getUsers } from "@/services/api/user.api";
 
 const UserBackOffice = () => {
-
-    const [users , setUsers] = useState(null)
-
-    // const {fetchData, data, error, loading, typeofError} = useFetch({
-    //     url: "/users",
-    //     method: "GET",
-    //     body: null,
-    //     token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmM1NTJlNzE5ZTYwZTQ0Mjc3ZTI0MyIsImFkbWluIjp0cnVlLCJpYXQiOjE3MTEwMzU3MzgsImV4cCI6MTc0MjU3MTczOH0.tkyV116rstBp91zgR9iFzDRP0eDnQNc5TETAoFSXwok",
-    // }); 
-
-    getUsers(setUsers)
+    const [users, setUsers] = useState(null)
 
     useEffect(() => {
-        console.log(`Hello`)
-    }, [users]);
+        getUsers(setUsers);
+    }, []);
 
     const handleDeleteUser = (userId) => {
         const updatedUserList = userListTable.filter(user => user.id !== userId);
@@ -31,7 +21,7 @@ const UserBackOffice = () => {
     if (users === null)
         return (<div></div>)
 
-    return ( 
+    return (
         <div className="container mx-auto">
             <TitlePage title="Liste des utilisateurs" />
             <div className="min-h-screen">
