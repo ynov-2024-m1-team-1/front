@@ -13,18 +13,40 @@ export async function getUsers() {
     }
 }
 
-export async function getUser() {
+export async function getUser(id, token) {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/${id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/users/${id}`, {
             cache: "no-store",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+
             },
         });
         const data = await res.json({
             userId: token.id,
             isAdmin: token.isAdmin
         });
+        return data;
+    } catch (err) {
+        return err;
+    }
+}
+
+export async function getMe(token) {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/users/self/me`, {
+            cache: "no-store",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+        });
+
+        if (!res.ok) {
+            console.error("Error fetching user data");
+        }
+
+        const data = await res.json();
         return data;
     } catch (err) {
         return err;

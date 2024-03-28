@@ -52,7 +52,7 @@ const Index = () => {
                         <NavMenu menu={isAdmin ? menuAdmin : menu} color="grey" />
                         {userToken ? (
                             <div className='justify-center'>
-                                <Link href="/account" className='text-md font-normal leading-6 text-base hover:text-slate-500'>  
+                                <Link href="/user/me" className='text-md font-normal leading-6 text-base hover:text-slate-500'>  
                                     Account
                                 </Link>
                                 <span className='mx-4'>|</span>
