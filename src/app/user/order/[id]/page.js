@@ -9,7 +9,7 @@ const UserProfilePage = () => {
 
     return (
         <div>
-            <h1>Mes commandes</h1>
+            <h1>Ma commandes</h1>
             <div className="min-h-screen">
                 <div className="mb-8">
                     <OrderTable data={userData} type="orderDetail" />
