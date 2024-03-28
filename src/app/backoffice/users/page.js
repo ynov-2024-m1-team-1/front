@@ -3,18 +3,13 @@ import TitlePage from "@/components/UI/TitlePage";
 import React, { useState, useEffect } from "react";
 import UserTable from "@/components/UI/Table";
 import useFetch from "@/hooks/useFetch";
+import { getUsers } from "@/services/api/user.api";
 
 const UserBackOffice = () => {
-
-    const {fetchData, data, error, loading, typeofError} = useFetch({
-        url: "/users",
-        method: "GET",
-        body: null,
-        token: null,
-    }); 
+    const [users, setUsers] = useState(null)
 
     useEffect(() => {
-        fetchData();
+        getUsers(setUsers);
     }, []);
 
     const handleDeleteUser = (userId) => {
@@ -23,12 +18,15 @@ const UserBackOffice = () => {
         console.log("L'utilisateur avec l'ID", userId, "a été supprimé avec succès.");
     };
 
+    if (users === null)
+        return (<div></div>)
+
     return (
         <div className="container mx-auto">
             <TitlePage title="Liste des utilisateurs" />
             <div className="min-h-screen">
                 <div className="mb-8">
-                    <UserTable data={data} type="user" handleDelete={handleDeleteUser} />
+                    <UserTable data={users} type="user" handleDelete={handleDeleteUser} />
                 </div>
             </div>
         </div>

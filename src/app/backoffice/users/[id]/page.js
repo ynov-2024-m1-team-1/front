@@ -1,11 +1,161 @@
+"use client"
 import React from "react";
+import { getUser } from "@/services/api/user.api";
+import TitlePage from "@/components/UI/TitlePage";
+import Link from "next/link";
+import Button from "@/components/UI/Button";
+import { useParams } from "next/navigation";
+import Input from "@/components/UI/Input";
+import { useEffect, useState } from "react";
 
-const UserDetailPage = ({ user }) => {
-    console.log(user)
+const UserDetailPage = () => {
+    const params = useParams();
+    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState(null);
+    const [userForm, setUserForm] = useState ({
+        id: '',
+        name: '',
+        surname: '',
+        email: '',
+        address: '',
+        postalCode: 0,
+        town: '',
+        phone: '',
+        admin: false,
+        wishlist: '',
+        orders: '',
+    });
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            setLoading(true);
+            try {
+                console.log("params.id : "+JSON.stringify(params.id, null, 4));  
+                let response = await getUser(params.id);
+                console.log("response : "+JSON.stringify(response.data, null, 4));  
+                if (response) {
+                    setUser(response.data);
+                }
+            } catch (err) {
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        if (params.id) {
+            fetchUser();
+        }
+    }, []);
+
+    const handleChange = (e) => {
+        setUserForm({...userForm, [e.target.name]: e.target.value})
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(userForm);
+    };
+
     return (
-        <div>
-            <h1>User Details</h1>
-            <p>User ID: {user}</p>
+        <div className="container mx-auto">
+            <TitlePage title="Modification de l'utilisateur"/>
+            <div className="min-h-screen">
+                <div className="mb-8">
+                    {loading && <p>Loading...</p>}
+                    {user && (
+                        <form onSubmit={handleSubmit}>
+                            <div>
+                                <p>Identifiant du client : {user._id}</p>
+                                <Input
+                                    label={"Nom de l'utilisateur"}
+                                    name={'surname'}
+                                    value={userForm.surname}
+                                    placeholder={user.surname}
+                                    type={'text'}
+                                    onChange={(e) => handleChange(e)}
+                                    isRequired={false}
+                                    className={"w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-lg py-3 px-4 mb-3 focus:outline-none focus:border-blue-500"}
+                                />
+
+                                <Input
+                                    label={"Prenom"}
+                                    name={'name'}
+                                    value={userForm.name}
+                                    placeholder={user.name}
+                                    type={'text'}
+                                    onChange={(e) => handleChange(e)}
+                                    isRequired={false}
+                                    className={"w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-lg py-3 px-4 mb-3 focus:outline-none focus:border-blue-500"}
+                                />
+
+                                <Input
+                                    label={"Email"}
+                                    name={'email'}
+                                    value={userForm.email}
+                                    placeholder={user.email}
+                                    type={'text'}
+                                    onChange={(e) => handleChange(e)}
+                                    isRequired={false}
+                                    className={"w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-lg py-3 px-4 mb-3 focus:outline-none focus:border-blue-500"}
+                                />
+
+                                <Input
+                                    label={"Adresse"}
+                                    name={'adresse'}
+                                    value={userForm.address}
+                                    placeholder={user.address}
+                                    type={'text'}
+                                    onChange={(e) => handleChange(e)}
+                                    isRequired={false}
+                                    className={"w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-lg py-3 px-4 mb-3 focus:outline-none focus:border-blue-500"}
+                                />
+
+                                <Input
+                                    label={"Code Postal"}
+                                    name={'postalCode'}
+                                    value={userForm.postalCode}
+                                    placeholder={user.postalCode}
+                                    type={'number'}
+                                    onChange={(e) => handleChange(e)}
+                                    isRequired={false}
+                                    className={"w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-lg py-3 px-4 mb-3 focus:outline-none focus:border-blue-500"}
+                                />
+
+                                <Input
+                                    label={"Commune"}
+                                    name={'town'}
+                                    value={userForm.town}
+                                    placeholder={user.town}
+                                    type={'text'}
+                                    onChange={(e) => handleChange(e)}
+                                    isRequired={false}
+                                    className={"w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-lg py-3 px-4 mb-3 focus:outline-none focus:border-blue-500"}
+                                />
+
+                                <Input
+                                    label={"Numéro de téléphone"}
+                                    name={'town'}
+                                    value={userForm.phone}
+                                    placeholder={user.phone}
+                                    type={'text'}
+                                    onChange={(e) => handleChange(e)}
+                                    isRequired={false}
+                                    className={"w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-lg py-3 px-4 mb-3 focus:outline-none focus:border-blue-500"}
+                                />
+
+                            </div>
+                            <br />
+                            <div className="inline-flex space-x-4 content-around">
+                                <Link href={`/backoffice/users${params.id}`}>
+                                    <Button title="Annuler" className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900" />
+                                </Link>
+                                <Button type="submit" className="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"title="Enregistrer" />
+                            </div>
+                        </form>
+                    )}
+                    <br />
+                </div>
+            </div>
         </div>
     );
 };
