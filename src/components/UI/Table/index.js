@@ -6,7 +6,7 @@ const Table = ({ data, type, handleDelete }) => {
 
     const items = data?.data;
 
-    console.log(items);
+    console.log("data : "+JSON.stringify(items,null, 4));
 
     if (!items || items.length === 0) {
         return <div>Aucune donnée à afficher</div>;
@@ -21,17 +21,18 @@ const Table = ({ data, type, handleDelete }) => {
                             <th scope="col" className="px-6 py-3">Id</th>
                             <th scope="col" className="px-6 py-3">Nom Utilisateur</th>
                             <th scope="col" className="px-6 py-3">Email</th>
+                            <th scope="col" className="px-6 py-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {items.users.map(item => (
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900" key={item.id}>
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:bg-gray-800">{item.id}</th>
-                                <td className="px-6 py-4">{item.username}</td>
+                        {items.map(item => (
+                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900" key={item._id}>
+                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:bg-gray-800">{item._id}</th>
+                                <td className="px-6 py-4">{item.name} {item.surname}</td>
                                 <td className="px-6 py-4">{item.email}</td>
                                 <td className="px-6 py-4">
                                     <div className="inline-flex space-x-4">
-                                        <Link href={`/backoffice/users/${item.id}`}>
+                                        <Link href={`/backoffice/users/${item._id}`}>
                                             <Button className="font-medium text-blue-600 dark:text-blue-500 hover:underline" title="Modifier"/>
                                         </Link>
                                         <Button className="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleDelete(item._id)} title="Supprimer" />
@@ -43,9 +44,9 @@ const Table = ({ data, type, handleDelete }) => {
                     <tfoot className="bg-neutral-900 dark:bg-gray-700 dark:text-gray-400 text-white text-center">
                         <tr className="text-s text-white uppercase bg-neutral-900 dark:bg-gray-700 dark:text-gray-400">
                             <th scope="row" className="px-6 py-3 uppercase">Total Utilisateur</th>
-                            <td className="px-6 py-3 font-semibold">{items.users.length}</td>
+                            <td className="px-6 py-3 font-semibold">{items.length}</td>
                             <td colSpan="2" className="px-6 py-3 uppercase font-semibold">Total Admin</td>
-                            <td className="px-6 py-3 text-green-400 font-semibold">{items.users.filter((user) => user.isAdmin).length}</td>
+                            <td className="px-6 py-3 text-green-400 font-semibold">{items.filter((user) => user.isAdmin).length}</td>
                         </tr>
                     </tfoot>
                 </table>
