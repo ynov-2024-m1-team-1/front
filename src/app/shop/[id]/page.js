@@ -90,7 +90,7 @@ export default function Page() {
                     />
                 )
             }
-            <BreadCrumb current_page={product?.products.name} />
+            {/* <BreadCrumb current_page={product?.products.name} /> */}
             <div className="flex">
                 <div className="thumbnail lg:flex-1">
                     <div

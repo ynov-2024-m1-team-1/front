@@ -1,22 +1,32 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getProduct } from '@/services/api/product.api';
 
 const Cart = () => {
   const [items, setItems] = useState([]);
 
-  // Add item to cart
-  const addItemToCart = (item) => {
-    setItems([...items, item]);
+  const response = await getProduct(id);
+
+  useEffect(() => {
+    recoverCart();
+  }, []);
+
+
+  const recoverCart = () => {
+    const cart = localStorage.getItem("cart");
+    if (cart) {
+      setItems(JSON.parse(cart));
+    }
   };
 
-  // Remove item from cart
   const removeItemFromCart = (itemId) => {
-    setItems(items.filter((item) => item.id !== itemId));
+    setItems(prevItems => prevItems.filter((item) => item.id !== itemId));
+    localStorage.setItem("cart", JSON.stringify(items.filter((item) => item.id !== itemId)));
   };
 
-  // Clear cart
   const clearCart = () => {
     setItems([]);
+    localStorage.removeItem("cart");
   };
 
   return (
@@ -27,9 +37,9 @@ const Cart = () => {
       ) : (
         <ul>
           {items.map((item) => (
+            console.log(item),
             <li key={item.id}>
-              {item.name} - ${item.price}
-              <button onClick={() => removeItemFromCart(item.id)}>Remove</button>
+              {item} - <button onClick={() => removeItemFromCart(item.id)}> Remove</button>
             </li>
           ))}
         </ul>
