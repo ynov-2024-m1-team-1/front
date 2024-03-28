@@ -1,18 +1,20 @@
 export async function getCheckoutSession(productsArray, shippingMethod) {
-    const orderId = createOrder(productsArray, shippingMethod);
+    const token = localStorage.getItem("token");
 
     try {
-        const token = localStorage.getItem("token");
-
         if (!token) {
             throw new Error("Token not found");
         }
+        const orderId = await createOrder(productsArray, shippingMethod, token);
 
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_API_ENDPOINT}/order/createCheckoutSession?orderId=${orderId}`,
             {
                 cache: "no-store",
-                Authorization: `Bearer ${token}`,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                method: "POST",
             }
         );
         const data = await res.json();
@@ -22,19 +24,22 @@ export async function getCheckoutSession(productsArray, shippingMethod) {
     }
 }
 
-async function createOrder(productsArray, shippingMethod) {
+async function createOrder(productsArray, shippingMethod, token) {
     try {
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_API_ENDPOINT}/order`,
             {
                 method: "POST",
                 cache: "no-store",
-                Authorization: `Bearer ${token}`,
-                body: {
-                    price: 500,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
                     products: productsArray,
                     shippingMethod: shippingMethod,
-                },
+                    price: 500,
+                }),
             }
         );
         const data = await res.json();
