@@ -6,6 +6,7 @@ import Link from "next/link";
 import Button from "@/components/UI/Button";
 import { useParams } from "next/navigation";
 import Input from "@/components/UI/Input";
+import { updateUser } from "@/services/api/user.api"
 import { useEffect, useState } from "react";
 
 const UserDetailPage = () => {
@@ -13,7 +14,7 @@ const UserDetailPage = () => {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
     const [userForm, setUserForm] = useState ({
-        id: '',
+        _id: '',
         name: '',
         surname: '',
         email: '',
@@ -21,7 +22,6 @@ const UserDetailPage = () => {
         postalCode: 0,
         town: '',
         phone: '',
-        admin: false,
         wishlist: '',
         orders: '',
     });
@@ -32,7 +32,7 @@ const UserDetailPage = () => {
             try {
                 console.log("params.id : "+JSON.stringify(params.id, null, 4));  
                 let response = await getUser(params.id);
-                console.log("response : "+JSON.stringify(response.data, null, 4));  
+                console.log("response : "+JSON.stringify(response, null, 4));  
                 if (response) {
                     setUser(response.data);
                 }
@@ -52,8 +52,10 @@ const UserDetailPage = () => {
     };
 
     const handleSubmit = (e) => {
+        console.log("userForm1 : "+JSON.stringify(userForm, null, 4)); 
+        updateUser(params._id, userForm)
         e.preventDefault();
-        console.log(userForm);
+        // console.log(userForm);
     };
 
     return (
@@ -134,7 +136,7 @@ const UserDetailPage = () => {
 
                                 <Input
                                     label={"Numéro de téléphone"}
-                                    name={'town'}
+                                    name={'phone'}
                                     value={userForm.phone}
                                     placeholder={user.phone}
                                     type={'text'}
@@ -146,10 +148,12 @@ const UserDetailPage = () => {
                             </div>
                             <br />
                             <div className="inline-flex space-x-4 content-around">
-                                <Link href={`/backoffice/users${params.id}`}>
+                                <Link href={`/backoffice/users`}>
                                     <Button title="Annuler" className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900" />
                                 </Link>
-                                <Button type="submit" className="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"title="Enregistrer" />
+                                {/* <Link href={`/backoffice/users/${params.id}`}> */}
+                                <Button type="submit" className="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800" /*onClick={() => updateUser(params._id, )} */title="Enregistrer" />
+                                {/* </Link> */}
                             </div>
                         </form>
                     )}

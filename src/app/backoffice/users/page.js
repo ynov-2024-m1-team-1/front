@@ -16,10 +16,10 @@ const UserBackOffice = () => {
     //     token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmM1NTJlNzE5ZTYwZTQ0Mjc3ZTI0MyIsImFkbWluIjp0cnVlLCJpYXQiOjE3MTEwMzU3MzgsImV4cCI6MTc0MjU3MTczOH0.tkyV116rstBp91zgR9iFzDRP0eDnQNc5TETAoFSXwok",
     // }); 
 
-    getUsers(setUsers)
+    
 
     useEffect(() => {
-        console.log(`Hello`)
+        getUsers(setUsers)
     }, [users]);
 
     const handleDeleteUser = (userId) => {
@@ -29,7 +29,11 @@ const UserBackOffice = () => {
     };
 
     if (users === null)
-        return (<div></div>)
+        return (
+        <div>
+            <p>User list is empty !</p>
+        </div>
+        )
 
     return ( 
         <div className="container mx-auto">
