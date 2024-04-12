@@ -17,19 +17,24 @@ const ProductBackOffice = () => {
 
     useEffect(() => {
         if (data) {
-            setProductsList(data.data.products); 
+            setProductsList(data.data.products);
         }
     }, [data]);
 
     const handleDeleteProduct = async (id) => {
         try {
-            await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/products/delete/${id}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }); 
-            const updatedProducts = productsList.filter((product) => product._id !== id);  
+            await fetch(
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/products/delete/${id}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            const updatedProducts = productsList.filter(
+                (product) => product._id !== id
+            );
             setProductsList(updatedProducts);
             console.log("Suppression du produit", id);
         } catch (error) {
@@ -39,7 +44,7 @@ const ProductBackOffice = () => {
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [fetchData]);
 
     return (
         <div className="container mx-auto">
