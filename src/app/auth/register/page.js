@@ -34,6 +34,7 @@ const RegisterForm = () => {
         try {
             const response = await register(userForm);
             if (response.code === 200) {
+              console.log("response", response);
                 localStorage.setItem("token", response.token);
                 setSuccess(response.message);
 
