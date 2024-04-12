@@ -26,7 +26,6 @@ export async function getUsers(setUsers) {
 
 export async function getUser(id) {
     try {
-        console.log("id : "+id)
         if(!token) throw Error("Not connected")
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/users/${id}`, {
             cache: "no-store",
@@ -37,7 +36,6 @@ export async function getUser(id) {
             },
         });
         const data = await res.json();
-        console.log(res)
 
         return data;
     } catch (err) {

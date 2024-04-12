@@ -74,14 +74,14 @@ const Table = ({ data, type, handleDelete }) => {
                                 ) : (
                                     <td className="px-6 py-4 text-red-500 dark:text-red-400">Inactif</td>
                                 )}
-                                <td className="px-6 py-4"><img src={item.packshot}/></td>
+                                <td className="px-6 py-4"><img className="w-16 h-16 justify-center" src={item.packshot}/></td>
                                 <td className="px-6 py-4">{item.price}€</td>
                                 <td className="px-6 py-4">
                                     <div className="inline-flex space-x-4">
                                         <Link href={`/backoffice/products/${item._id}`}>
                                             <Button className="font-medium text-blue-600 dark:text-blue-500 hover:underline" title="Modifier"/>
                                         </Link>
-                                        <Button id="popupButton" className="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleDelete(item._id)}  title="Supprimer" />
+                                        <Button className="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleDelete(item._id)}  title="Supprimer" />
                                     </div>
                                 </td>
                             </tr>
