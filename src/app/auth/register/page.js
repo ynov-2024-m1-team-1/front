@@ -37,7 +37,7 @@ const RegisterForm = () => {
         setSuccess(response.message);
 
         setTimeout(() => {
-          router.push("./login");
+          router.push("/user/me");
         }, 1500);
 
         return;
@@ -62,12 +62,12 @@ const RegisterForm = () => {
 
   return (
     <div className="container mx-auto bg-gray-100">
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <div className="bg-white p-8 rounded shadow-md w-96 xl:w-1/3">
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 ">
+            <div className="bg-white p-8 rounded shadow-md w-96 xl:w-1/3 ">
                 <h2 className="text-2xl font-bold mb-6">Register</h2> 
                 <form onSubmit={submitRegister}>
                     <div className="flex">
-                      <div className="justify-start">
+                      <div className="justify-start mr-4">
                         <Input label={'Name'} name={'name'} value={userForm.name} placeholder={'name'} type={'text'} onChange={handleChange} />
                       </div>
                       <div className="justify-end">
@@ -79,7 +79,7 @@ const RegisterForm = () => {
                     <Input label={'Confirm Password'} name={'confirmPassword'} value={userForm.confirmPassword} placeholder={'confirmPassword'} type={'password'} onChange={handleChange} />
                     <Input label={'Address'} name={'address'} value={userForm.address} placeholder={'address'} type={'text'} onChange={handleChange} />
                     <div className="flex">
-                      <div className="justify-start">
+                      <div className="justify-start mr-4">
                         <Input label={'Town'} name={'town'} value={userForm.town} placeholder={'town'} type={'text'} onChange={handleChange} />
                       </div>
                       <div className="justify-end">
@@ -106,7 +106,7 @@ const RegisterForm = () => {
                             <br />
                           </div>
                           <br />
-                          <p className="text-500 font-bold">Vous serez rediriger vers la page de connexion dans ...</p>
+                          <p className="text-500 font-bold">Vous serez rediriger vers la page de profil dans ...</p>
                         </>
                       )
                     }
