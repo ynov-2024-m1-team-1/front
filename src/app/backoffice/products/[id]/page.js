@@ -28,7 +28,6 @@ const Product = () => {
             setLoading(true);
             try {
                 let response = await getProduct(params.id);
-                console.log(response);
                 if (response) {
                     setProduct(response.data.products);
                 }
@@ -49,7 +48,6 @@ const Product = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(productForm);
     };
 
     return (

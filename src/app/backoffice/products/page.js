@@ -36,7 +36,6 @@ const ProductBackOffice = () => {
                 (product) => product._id !== id
             );
             setProductsList(updatedProducts);
-            console.log("Suppression du produit", id);
         } catch (error) {
             console.error("Erreur lors de la suppression du produit", error);
         }
