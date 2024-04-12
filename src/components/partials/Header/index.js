@@ -38,14 +38,21 @@ const Index = () => {
         <header className="bg-white border-b border-color-black">
             <ul className="flex pl-6 pr-6 items-center justify-between">
                 <li className="flex lg:flex-1">
-                    <Link href="/backoffice">
-                        <span className="font-semibold text-2xl font-bold">
-                            {
-                                isAdmin ? "BackOffice - Admin" : 
-                                "mystore"
-                            }
-                        </span>
-                    </Link>
+                    {
+                        isAdmin ? (
+                            <Link href="/backoffice/home">
+                                <span className="font-semibold text-2xl font-bold">
+                                    BackOffice - Admin
+                                </span>
+                            </Link>
+                        ) : (
+                            <Link href="/">
+                                <span className="font-semibold text-2xl font-bold">
+                                    mystore
+                                </span>
+                            </Link>
+                        )
+                    }
                 </li>
                 <li>
                     <div className='flex items-center'>
@@ -56,14 +63,18 @@ const Index = () => {
                                     Account
                                 </Link>
                                 <span className='mx-4'>|</span>
-                                <Button className='bg-black text-white px-4 py-2 border border-white rounded-full hover:bg-white hover:text-black hover:border-black transition ease-in-out delay-150' onClick={logout} title={'Logout'}/>
-                                    
+                                <Button className='bg-black text-white px-4 py-2 border border-white rounded-full hover:bg-white hover:text-black hover:border-black transition ease-in-out delay-150' onClick={logout} title={'Logout'}/>  
                             </div> 
                         ) : (
-                            <Link href="auth/login" className='text-md font-normal leading-6 text-base hover:text-slate-500'>
-                                Login
-                            </Link>
-                            
+                            <div className='justify-center'>
+                                <Link href="../auth/login" className='text-md font-normal leading-6 text-base hover:text-slate-500'>
+                                    Login
+                                </Link>
+                                <span className='mx-4'>|</span>
+                                <Link href="../auth/register" className='text-md font-normal leading-6 text-base hover:text-slate-500'>
+                                    Register
+                                </Link>
+                            </div>  
                         )}
                     </div>
                 </li>

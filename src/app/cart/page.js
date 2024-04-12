@@ -1,11 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import TitlePage from "@/components/UI/TitlePage";
+// import { getCheckoutSession } from "@/services/api/checkout.api";
+import { useRouter } from "next/navigation";
 
 const Cart = () => {
     const [product, setProduct] = useState([]);
     const [checkoutSessionURL, setCheckoutSessionURL] = useState("");
     const [shippingMethod, setShippingMethod] = useState("standard");
+    const router = useRouter();
 
     useEffect(() => {
         if (localStorage.getItem("cart")) {
