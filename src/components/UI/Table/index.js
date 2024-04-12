@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Button from "@/components/UI/Button";
+import styles from './styles.css';
 
 const Table = ({ data, type, handleDelete }) => {
 
@@ -56,7 +57,6 @@ const Table = ({ data, type, handleDelete }) => {
                            <th scope="col" className="px-6 py-3">ID</th>
                            <th scope="col" className="px-6 py-3">Produit</th>
                            <th scope="col" className="px-6 py-3">Description</th>
-                           <th scope="col" className="px-6 py-3">Image</th>
                            <th scope="col" className="px-6 py-3">Statut</th>
                            <th scope="col" className="px-6 py-3">Packshot</th>
                            <th scope="col" className="px-6 py-3">Prix</th>
@@ -69,23 +69,24 @@ const Table = ({ data, type, handleDelete }) => {
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:bg-gray-800">{item._id}</th>
                                 <td className="px-6 py-4">{item.name}</td>
                                 <td className="px-6 py-4">{item.description}</td>
-                                <td className="px-6 py-4">{item.image}</td>
                                 {item.active ? (
                                     <td className="px-6 py-4 text-green-500 dark:text-green-400">Actif</td>
                                 ) : (
                                     <td className="px-6 py-4 text-red-500 dark:text-red-400">Inactif</td>
                                 )}
-                                <td className="px-6 py-4">{item.packshot}</td>
+                                <td className="px-6 py-4"><img src={item.packshot}/></td>
                                 <td className="px-6 py-4">{item.price}€</td>
                                 <td className="px-6 py-4">
                                     <div className="inline-flex space-x-4">
                                         <Link href={`/backoffice/products/${item._id}`}>
                                             <Button className="font-medium text-blue-600 dark:text-blue-500 hover:underline" title="Modifier"/>
                                         </Link>
-                                        <Button className="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleDelete(item._id)} title="Supprimer" />
+                                        <Button id="popupButton" className="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleDelete(item._id)}  title="Supprimer" />
                                     </div>
                                 </td>
                             </tr>
+
+                            
                         ))}
                     </tbody>
                     <tfoot className="bg-neutral-900 dark:bg-gray-700 dark:text-gray-400 text-white text-center">

@@ -1,10 +1,11 @@
+const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmM1NTJlNzE5ZTYwZTQ0Mjc3ZTI0MyIsImFkbWluIjp0cnVlLCJpYXQiOjE3MTI5MTYwNTYsImV4cCI6MTc0NDQ1MjA1Nn0.dfDN0S_-htGFENo2FhJD3Cj9CKuubl2GYsm_Me5sYDc`
+
 export async function getUsers(setUsers) {
 
     //localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmM1NTJlNzE5ZTYwZTQ0Mjc3ZTI0MyIsImFkbWluIjp0cnVlLCJpYXQiOjE3MTEwMzU3MzgsImV4cCI6MTc0MjU3MTczOH0.tkyV116rstBp91zgR9iFzDRP0eDnQNc5TETAoFSXwok")
     try {
        // const token = localStorage.getItem("token")
 
-        const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmM1NTJlNzE5ZTYwZTQ0Mjc3ZTI0MyIsImFkbWluIjp0cnVlLCJpYXQiOjE3MTEwMzU3MzgsImV4cCI6MTc0MjU3MTczOH0.tkyV116rstBp91zgR9iFzDRP0eDnQNc5TETAoFSXwok`
 
         if(!token) throw Error("Not connected")
 
@@ -23,8 +24,10 @@ export async function getUsers(setUsers) {
     }
 }
 
-export async function getUser(id, token) {
+export async function getUser(id) {
     try {
+        console.log("id : "+id)
+        if(!token) throw Error("Not connected")
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/users/${id}`, {
             cache: "no-store",
             headers: {
@@ -33,10 +36,9 @@ export async function getUser(id, token) {
 
             },
         });
-        const data = await res.json({
-            userId: token.id,
-            isAdmin: token.isAdmin
-        });
+        const data = await res.json();
+        console.log(res)
+
         return data;
     } catch (err) {
         return err;
