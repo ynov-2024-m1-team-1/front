@@ -6,19 +6,38 @@ import useFetch from "@/hooks/useFetch";
 import { getUsers } from "@/services/api/user.api";
 
 const UserBackOffice = () => {
-    const [users, setUsers] = useState(null)
+    const [usersList, setUsersList] = useState(null)
 
     useEffect(() => {
-        getUsers(setUsers);
+        getUsers(setUsersList);
     }, []);
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmM1NTJlNzE5ZTYwZTQ0Mjc3ZTI0MyIsImFkbWluIjp0cnVlLCJpYXQiOjE3MTI5MTYwNTYsImV4cCI6MTc0NDQ1MjA1Nn0.dfDN0S_-htGFENo2FhJD3Cj9CKuubl2GYsm_Me5sYDc";
 
-    const handleDeleteUser = (userId) => {
-        const updatedUserList = userListTable.filter(user => user.id !== userId);
-        setUserListTest(updatedUserList);
-        console.log("L'utilisateur avec l'ID", userId, "a été supprimé avec succès.");
+    const handleDeleteUser = async (id) => {
+        try {
+            await fetch(
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/users/delete/${id}`,
+                {
+                    method: "DELETE",
+                    cache: "no-store",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                }
+            );
+            const updatedUsersList = usersList.filter(
+                (user) => user._id !== id
+            );
+            setUsersList(updatedUsersList);
+            window.location.reload();
+            console.log("L'utilisateur avec l'ID", userId, "a été supprimé avec succès.");
+        } catch (error) {
+            console.error("Erreur lors de la suppression du user", error);
+        }
     };
 
-    if (users === null)
+    if (usersList === null)
         return (<div></div>)
 
     return (
@@ -26,7 +45,7 @@ const UserBackOffice = () => {
             <TitlePage title="Liste des utilisateurs" />
             <div className="min-h-screen">
                 <div className="mb-8">
-                    <UserTable data={users} type="user" handleDelete={handleDeleteUser} />
+                    <UserTable data={usersList} type="user" handleDelete={handleDeleteUser} />
                 </div>
             </div>
         </div>

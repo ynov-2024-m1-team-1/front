@@ -6,8 +6,6 @@ const Table = ({ data, type, handleDelete }) => {
 
     const items = data?.data;
 
-    console.log("data : "+JSON.stringify(items,null, 4));
-
     if (!items || items.length === 0) {
         return <div>Aucune donnée à afficher</div>;
     }
