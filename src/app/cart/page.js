@@ -43,9 +43,7 @@ const Cart = () => {
                     );
             });
         } else {
-            console.log(
-                "Pas d'array d'IDs dans le localStorage avec la clé 'cart'."
-            );
+            console.error("Le panier est vide.");
         }
     }, []);
 

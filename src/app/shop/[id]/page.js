@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import { getProduct } from "@/services/api/product.api.js";
 import { addItemToCart } from "@/services/cart/cart.js";
-import { getBase64 } from "../../../lib/base64";
 import BreadCrumb from "@/components/UI/Breadcrumb";
 import TitlePage from "@/components/UI/TitlePage";
 import ProductFancyBox from "@/components/products/ProductFancyBox";
@@ -15,15 +14,11 @@ import Button from "@/components/UI/Button";
 export default function Page() {
     const { id } = useParams();
     const [selectedImage, setSelectedImage] = useState(null);
-    const [placehodlerImage, setPlaceholderImage] = useState(null);
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [slideIndex, setSlideIndex] = useState(0);
     const [showFancyBox, setShowFancyBox] = useState(false);
     const [error, setError] = useState(null);
-
-    console.log(id);
-    console.log(product);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -44,32 +39,21 @@ export default function Page() {
         }
     }, [id]);
 
-    // useEffect(() => {
-    //     const fetchPlaceholderImage = async () => {
-    //         const placeholder = await getBase64(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.thumbnail}`);
-    //         setPlaceholderImage(placeholder);
-    //     }
-    //     if (product) {
-    //         setSelectedImage(product.thumbnail);
-    //         fetchPlaceholderImage();
-    //     }
-    // }, [product]);
-
     if (loading) return <Loader />;
 
     const goToNextSlide = () => {
         setSelectedImage(
-            slideIndex === 0 ? product.packshot : product.thumbnail
+            slideIndex === 0 ? product.packshot : product.jpg
         );
         setSlideIndex(slideIndex === 0 ? 1 : 0);
     };
 
     const goToPrevSlide = () => {
         setSelectedImage(
-            slideIndex === 0 ? product.packshot : product.thumbnail
+            slideIndex === 0 ? product.packshot : product.jpg
         );
         setSlideIndex(slideIndex === 0 ? 1 : 0);
-    };
+    };  
 
     return (
         <div className="container mx-auto py-12">
@@ -85,45 +69,43 @@ export default function Page() {
                     }}
                 />
             )}
-            {/* <BreadCrumb current_page={product?.products.name} /> */}
+            <BreadCrumb current_page={product?.name} />
             <div className="flex">
                 <div className="thumbnail lg:flex-1">
-                    <div
+                    <div className="group/show w-4/5 h-[550px] overflow-hidden cursor-pointer"
                         onClick={() => setShowFancyBox(true)}
-                        className="group/show w-4/5 h-[550px] overflow-hidden cursor-pointer"
                     >
-                        {/* <Image
-                            blurDataURL={placehodlerImage}
+                        <Image
                             className="object-cover h-full w-full group-hover/show:scale-105 transition ease-in-out delay-150 z-1"
                             alt={product.name}
-                            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${selectedImage}`}
-                            width={500}
-                            height={500}
-                        /> */}
+                            src={product.packshot}
+                            width={550}
+                            height={550}
+                        />
                     </div>
                     <div className="carousel flex mt-4 overflow-hidden">
                         <div className="item w-[100px] h-[100px] mr-2">
-                            {/* <Image
-                                className="cursor-pointer object-cover h-full w-full "
-                                alt={product.name}
-                                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.thumbnail}`}
-                                width={100}
-                                height={100}
-                                onMouseOver={() => {
-                                    setSelectedImage(product.thumbnail);
-                                    setSlideIndex(0);
-                                }}
-                                onClick={() => {
-                                    setSelectedImage(product.thumbnail);
-                                    setSlideIndex(0);
-                                }}
-                            /> */}
-                        </div>
-                        <div className="item w-[100px] h-[100px]">
-                            {/* <Image
+                            <Image
                                 className="cursor-pointer object-cover h-full w-full"
                                 alt={product.name}
-                                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.packshot}`}
+                                src={product.jpg}
+                                width={100}
+                                height={100}
+                                onMouseOver={() => {
+                                    setSelectedImage(product.thumbnail);
+                                    setSlideIndex(0);
+                                }}
+                                onClick={() => {
+                                    setSelectedImage(product.thumbnail);
+                                    setSlideIndex(0);
+                                }}
+                            />
+                        </div>
+                        <div className="item w-[100px] h-[100px]">
+                            <Image
+                                className="cursor-pointer object-cover h-full w-full"
+                                alt={product.name}
+                                src={product.jpg}
                                 width={100}
                                 height={100}
                                 onMouseOver={() => {
@@ -134,17 +116,17 @@ export default function Page() {
                                     setSelectedImage(product.packshot);
                                     setSlideIndex(1);
                                 }}
-                            /> */}
+                            />
                         </div>
                     </div>
                 </div>
                 <div className="content lg:flex-1 p-6">
-                    <TitlePage title={product.products.name} />
+                    <TitlePage title={product.data} />
                     <p className="mb-3 font-semibold text-lg">
-                        {product.products.price} €
+                        {product.price} €
                     </p>
                     <br />
-                    <p className="leading-7">{product.products.description}</p>
+                    <p className="leading-7">{product.description}</p>
                     <br />
                     <Button
                         className="bg-black text-white px-4 py-2 border border-white rounded-full hover:bg-white hover:text-black hover:border-black transition ease-in-out delay-150"
