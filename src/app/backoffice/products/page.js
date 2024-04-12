@@ -44,7 +44,7 @@ const ProductBackOffice = () => {
 
     useEffect(() => {
         fetchData();
-    }, [fetchData]);
+    }, []);
 
     return (
         <div className="container mx-auto">
