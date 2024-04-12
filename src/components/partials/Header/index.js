@@ -67,11 +67,11 @@ const Index = () => {
                             </div> 
                         ) : (
                             <div className='justify-center'>
-                                <Link href="auth/login" className='text-md font-normal leading-6 text-base hover:text-slate-500'>
+                                <Link href="../auth/login" className='text-md font-normal leading-6 text-base hover:text-slate-500'>
                                     Login
                                 </Link>
                                 <span className='mx-4'>|</span>
-                                <Link href="auth/register" className='text-md font-normal leading-6 text-base hover:text-slate-500'>
+                                <Link href="../auth/register" className='text-md font-normal leading-6 text-base hover:text-slate-500'>
                                     Register
                                 </Link>
                             </div>  
