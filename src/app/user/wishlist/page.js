@@ -1,7 +1,6 @@
 // import React, { useState, useEffect } from 'react';
 
-const WishlistPage = ({wishlist}) => {
-    console.log(wishlist);
+const WishlistPage = ({ wishlist }) => {
     // const [wishlistItems, setWishlistItems] = useState([]);
 
     // useEffect(() => {

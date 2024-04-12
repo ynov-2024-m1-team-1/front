@@ -6,7 +6,6 @@ import { addItemToCart } from "@/services/cart/cart";
 import CartImage from "@/assets/images/panier.png";
 import WhislistImage from "@/assets/images/whislist.png";
 
-
 const Index = ({ product }) => {
     return (
         <div className="group/card max-w-sm bg-white rounded-lg">
@@ -39,10 +38,8 @@ const Index = ({ product }) => {
                 <div className="opacity-0 group-hover/card:opacity-100 transition ease-in-out delay-150 flex justify-center space-x-4">
                     <button
                         className="mt-4 inline-flex items-center px-4 py-3 bg-white"
-                        onClick={(e) => {
-                            console.log(e);
-                        }}
-                    > 
+                        onClick={(e) => {}}
+                    >
                         <Image
                             src={WhislistImage}
                             alt="whislist"
@@ -62,7 +59,7 @@ const Index = ({ product }) => {
                         onClick={(e) => {
                             addItemToCart(product._id);
                         }}
-                    > 
+                    >
                         <Image
                             src={CartImage}
                             alt="panier"

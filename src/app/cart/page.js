@@ -1,50 +1,34 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import TitlePage from "@/components/UI/TitlePage";
-// import { getCheckoutSession } from "@/services/api/checkout.api";
+import { getCheckoutSession } from "@/services/api/checkoutSession.api";
 import { useRouter } from "next/navigation";
+import { getProduct } from "@/services/api/product.api";
 
 const Cart = () => {
-    const [product, setProduct] = useState([]);
+    const [product, setProduct] = useState(null);
     const [checkoutSessionURL, setCheckoutSessionURL] = useState("");
     const [shippingMethod, setShippingMethod] = useState("standard");
     const router = useRouter();
 
     useEffect(() => {
-        if (localStorage.getItem("cart")) {
-            const idsString = localStorage.getItem("cart");
-            const idsArray = JSON.parse(idsString);
+        const fetchData = async () => {
+            const cart = JSON.parse(localStorage.getItem("cart"));
 
-            idsArray.forEach((id) => {
-                fetch(`https://team-api.faldin.xyz/api/products/${id}`)
-                    .then((response) => response.json())
-                    .then((responseData) => {
-                        if (
-                            responseData &&
-                            responseData.data &&
-                            responseData.data.products
-                        ) {
-                            const productData = responseData.data.products;
-                            setProduct((prevState) => [
-                                ...prevState,
-                                productData,
-                            ]);
-                        } else {
-                            console.error(
-                                "Les données du produit sont manquantes ou incorrectes."
-                            );
-                        }
-                    })
-                    .catch((error) =>
-                        console.error(
-                            "Erreur lors de la récupération des détails du produit:",
-                            error
-                        )
-                    );
+            if (!cart) {
+                setProduct([]);
+                return;
+            }
+
+            const productPromises = cart.map(async (id) => {
+                const productRes = await getProduct(id);
+                return productRes.data;
             });
-        } else {
-            console.error("Le panier est vide.");
-        }
+            const products = await Promise.all(productPromises);
+            setProduct(products);
+        };
+
+        fetchData();
     }, []);
 
     useEffect(() => {
@@ -63,6 +47,12 @@ const Cart = () => {
     const checkout = async (e) => {
         e.preventDefault();
 
+        const token = localStorage.getItem("token");
+        if (!token) {
+            router.push("/auth/login");
+            return;
+        }
+
         const productsArray = product.map((item) => item._id);
         const checkoutSessionURL = await getCheckoutSession(
             productsArray,
@@ -80,7 +70,7 @@ const Cart = () => {
         <div className="container mx-auto">
             <TitlePage title="Cart" />
             <div className="min-h-screen">
-                {product.length > 0 ? (
+                {product && product.length > 0 ? (
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead className="text-s text-white uppercase bg-neutral-900 dark:bg-gray-700 dark:text-gray-400">
@@ -164,9 +154,9 @@ const Cart = () => {
                             </tfoot>
                         </table>
                         <form onSubmit={checkout}>
-                            <div class="flex items-center">
+                            <div className="flex items-center">
                                 <input
-                                    checked
+                                    defaultChecked
                                     id="default-radio-1"
                                     type="radio"
                                     value="standard"
@@ -174,18 +164,17 @@ const Cart = () => {
                                     onClick={(e) => {
                                         setShippingMethod(e.target.value);
                                     }}
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                 />
                                 <label
-                                    for="default-radio-2"
-                                    class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    htmlFor="default-radio-2"
+                                    className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                                 >
                                     standard
                                 </label>
                             </div>
-                            <div class="flex items-center">
+                            <div className="flex items-center">
                                 <input
-                                    checked
                                     id="default-radio-2"
                                     type="radio"
                                     value="pick-up"
@@ -193,16 +182,18 @@ const Cart = () => {
                                     onClick={(e) => {
                                         setShippingMethod(e.target.value);
                                     }}
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                 />
                                 <label
-                                    for="default-radio-2"
-                                    class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    htmlFor="default-radio-2"
+                                    className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                                 >
                                     pick-up
                                 </label>
                             </div>
-                            <button type="submit">Checkout</button>
+                            <button type="submit">
+                                Accepter la transaction
+                            </button>
                         </form>
                     </div>
                 ) : (
@@ -212,9 +203,6 @@ const Cart = () => {
                 )}
                 <button onClick={clearCart}>Vider le panier</button>
                 <br />
-                <button>Annuler la transaction</button>
-                <br />
-                <button>Accepter la transaction</button>
             </div>
         </div>
     );
