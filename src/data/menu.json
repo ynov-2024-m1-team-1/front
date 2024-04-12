@@ -12,11 +12,7 @@
     "path": "/contact"
   },
   {
-    "name": "About",
-    "path": "/about"
-  },
-  {
-    "name": "Panier",
+    "name": "Cart",
     "path": "/cart"
   }
 ]
