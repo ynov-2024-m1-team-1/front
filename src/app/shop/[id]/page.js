@@ -1,19 +1,18 @@
 "use client";
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { useParams } from 'next/navigation'
-import { getProduct } from '@/services/api/product.api.js';
-import { addItemToCart } from '@/services/cart/cart.js';
-import { getBase64 } from '../../../lib/base64';
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import { getProduct } from "@/services/api/product.api.js";
+import { addItemToCart } from "@/services/cart/cart.js";
+import { getBase64 } from "../../../lib/base64";
 import BreadCrumb from "@/components/UI/Breadcrumb";
-import TitlePage from '@/components/UI/TitlePage';
+import TitlePage from "@/components/UI/TitlePage";
 import ProductFancyBox from "@/components/products/ProductFancyBox";
 import Loader from "@/components/UI/Loader";
 import Alert from "@/components/UI/Alert";
 import Button from "@/components/UI/Button";
 
 export default function Page() {
-
     const { id } = useParams();
     const [selectedImage, setSelectedImage] = useState(null);
     const [placehodlerImage, setPlaceholderImage] = useState(null);
@@ -34,14 +33,12 @@ export default function Page() {
                 if (product) {
                     setProduct(product.data);
                 }
-            }
-            catch (err) {
-                setError(err)
-            }
-            finally {
+            } catch (err) {
+                setError(err);
+            } finally {
                 setLoading(false);
             }
-        }
+        };
         if (id) {
             fetchProduct();
         }
@@ -61,43 +58,40 @@ export default function Page() {
     if (loading) return <Loader />;
 
     const goToNextSlide = () => {
-        setSelectedImage(slideIndex === 0 ? product.packshot : product.thumbnail);
+        setSelectedImage(
+            slideIndex === 0 ? product.packshot : product.thumbnail
+        );
         setSlideIndex(slideIndex === 0 ? 1 : 0);
-    }
+    };
 
     const goToPrevSlide = () => {
-        setSelectedImage(slideIndex === 0 ? product.packshot : product.thumbnail);
+        setSelectedImage(
+            slideIndex === 0 ? product.packshot : product.thumbnail
+        );
         setSlideIndex(slideIndex === 0 ? 1 : 0);
-    }
+    };
 
     return (
         <div className="container mx-auto py-12">
-            {
-                error && (
-                    <Alert message={error.message} type="error" />
-                )
-            }
-            {
-                !product && (
-                    <Alert message="No products found" type="error" />
-                )
-            }
-            {
-                showFancyBox && (
-                    <ProductFancyBox
-                        img={selectedImage}
-                        prevSlide={() => goToPrevSlide()}
-                        nextSlide={() => goToNextSlide()}
-                        close={() => { setShowFancyBox(false) }}
-                    />
-                )
-            }
+            {error && <Alert message={error.message} type="error" />}
+            {!product && <Alert message="No products found" type="error" />}
+            {showFancyBox && (
+                <ProductFancyBox
+                    img={selectedImage}
+                    prevSlide={() => goToPrevSlide()}
+                    nextSlide={() => goToNextSlide()}
+                    close={() => {
+                        setShowFancyBox(false);
+                    }}
+                />
+            )}
             {/* <BreadCrumb current_page={product?.products.name} /> */}
             <div className="flex">
                 <div className="thumbnail lg:flex-1">
                     <div
                         onClick={() => setShowFancyBox(true)}
-                        className="group/show w-4/5 h-[550px] overflow-hidden cursor-pointer">
+                        className="group/show w-4/5 h-[550px] overflow-hidden cursor-pointer"
+                    >
                         {/* <Image
                             blurDataURL={placehodlerImage}
                             className="object-cover h-full w-full group-hover/show:scale-105 transition ease-in-out delay-150 z-1"
@@ -146,11 +140,17 @@ export default function Page() {
                 </div>
                 <div className="content lg:flex-1 p-6">
                     <TitlePage title={product.products.name} />
-                    <p className="mb-3 font-semibold text-lg">{product.products.price} €</p>
+                    <p className="mb-3 font-semibold text-lg">
+                        {product.products.price} €
+                    </p>
                     <br />
                     <p className="leading-7">{product.products.description}</p>
                     <br />
-                    <Button className='bg-black text-white px-4 py-2 border border-white rounded-full hover:bg-white hover:text-black hover:border-black transition ease-in-out delay-150' onClick={() => addItemToCart(id)} title="Ajouter au panier" />
+                    <Button
+                        className="bg-black text-white px-4 py-2 border border-white rounded-full hover:bg-white hover:text-black hover:border-black transition ease-in-out delay-150"
+                        onClick={(e) => addItemToCart(id)}
+                        title="Ajouter au panier"
+                    />
                 </div>
             </div>
         </div>
