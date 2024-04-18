@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import TitlePage from "@/components/UI/TitlePage";
 import React, { useState, useEffect } from "react";
 import UserTable from "@/components/UI/Table";
@@ -60,6 +60,6 @@ const UserBackOffice = () => {
             </div>
         </div>
     );
-}
+};
 
 export default UserBackOffice;
