@@ -51,7 +51,7 @@ const Product = () => {
     };
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto bg-gray-100">
             <TitlePage title="Modification du Produit" />
             <div className="min-h-screen">
                 <div className="mb-8">

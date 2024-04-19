@@ -55,7 +55,7 @@ const UserDetailPage = () => {
     };
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto bg-gray-100">
             <TitlePage title="Modification de l'utilisateur" />
             <div className="min-h-screen">
                 <div className="mb-8">

@@ -22,7 +22,7 @@ const UserBackOffice = () => {
     if (users === null) return <div></div>;
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto bg-gray-100">
             <TitlePage title="Liste des utilisateurs" />
             <div className="min-h-screen">
                 <div className="mb-8">
