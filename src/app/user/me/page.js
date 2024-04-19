@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getMe } from "@/services/api/user.api";
 import Button from "@/components/UI/Button";
+import { getCookie } from 'cookies-next';
+
 
 const GetMe = () => {
     const [user, setUser] = useState(null);
@@ -11,7 +13,7 @@ const GetMe = () => {
     const router = useRouter();
 
     const fetchUser = async () => {
-        const token = localStorage.getItem("token");
+        const token = getCookie('token');   
         if (token) {
             try {
                 const response = await getMe(token);

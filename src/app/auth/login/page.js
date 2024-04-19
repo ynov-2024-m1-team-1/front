@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Input from '@/components/UI/Input';
 import Button from '@/components/UI/Button';
 import { useRouter } from 'next/navigation';
-// import { loginCreateCookieToken } from "@/app/api/auth/route";
 
 
 const Login = () => {
@@ -40,10 +39,8 @@ const Login = () => {
       return res.json();
     }).then((data) => {
       if (data.success) {
-        
         router.push("/backoffice/users");
       }
-      console.log("coucou2",data);
     }).catch((error) => {
       console.error('Error:', error);
     });

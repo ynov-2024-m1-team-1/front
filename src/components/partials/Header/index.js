@@ -1,28 +1,16 @@
-"use server";
+"use client";
 
-// import { useRouter } from 'next/navigation';
-// import Link from "next/link";
-// import NavMenu from "@/components/UI/NavMenu";
-// import menu from "@/data/menu.json";
-// import Button from "@/components/UI/Button";
-import { cookies } from "next/headers";
+import Link from "next/link";
+import NavMenu from "@/components/UI/NavMenu";
+import menu from "@/data/menu.json";
+import Button from "@/components/UI/Button";
+
+import { hasCookie } from 'cookies-next';
 
 const Index = () => {
-
-    const token = cookies().get('token');
-    console.log("token", token);
-
-    if (token) {
-        console.log("token", token);
-    } else {
-        console.log("no token");
-    }
-
     
     const logout = () => {
-        // localStorage.removeItem("token");
-        // setUserToken(null);
-        // router.push("/shop");
+        router.push("/shop");
     };
 
     return (
@@ -38,7 +26,7 @@ const Index = () => {
                 <li>
                     <div className='flex items-center'>
                         <NavMenu menu={menu} color="grey" />
-                        {userToken ? (
+                        {hasCookie('token') ? (
                             <div className='justify-center'>
                                 <Link href="/user/me" className='text-md font-normal leading-6 text-base hover:text-slate-500'>  
                                     Account

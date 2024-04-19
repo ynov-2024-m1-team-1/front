@@ -14,11 +14,10 @@ export function middleware(request) {
     
     try {
         const decodedToken= jwt.decode(token.value)
-        console.log("decondedToken", decodedToken);
 
         if (decodedToken.admin) {
             // return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BACKEND_URL}/backoffice/home`);
-            return NextResponse.redirect(`http://localhost:3000/backoffice/home`);
+            return NextResponse.redirect(`http://localhost:3000/backoffice`);
         } else if (!decodedToken.admin){
             // return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/me`);
             return NextResponse.redirect(`http://localhost:3000/user/me`);
