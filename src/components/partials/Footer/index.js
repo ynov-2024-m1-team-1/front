@@ -11,7 +11,7 @@ const Index = () => {
                         <span className="font-semibold text-2xl font-bold text-white">mystore.</span>
                     </Link>
                 </div>
-                <div className="w-[20%]">
+                <div>
                     <NavMenu menu={menu} color="white" />
                 </div>
             </div>

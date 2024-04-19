@@ -12,19 +12,19 @@ const UserDetailPage = () => {
     const params = useParams();
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
-    const [userForm, setUserForm] = useState({
-        id: "",
-        name: "",
-        surname: "",
-        email: "",
-        address: "",
-        postalCode: 0,
-        town: "",
-        phone: "",
-        admin: false,
-        wishlist: "",
-        orders: "",
-    });
+    // const [userForm, setUserForm] = useState({
+    //     id: "",
+    //     name: "",
+    //     surname: "",
+    //     email: "",
+    //     address: "",
+    //     postalCode: 0,
+    //     town: "",
+    //     phone: "",
+    //     admin: false,
+    //     wishlist: "",
+    //     orders: "",
+    // });
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -46,8 +46,43 @@ const UserDetailPage = () => {
         }
     }, []);
 
+    useEffect(() => {
+        console.log(user);
+    },[user]);
+
+    const handleUpdate = async (id) => {
+        try {
+            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmM1NTJlNzE5ZTYwZTQ0Mjc3ZTI0MyIsImFkbWluIjp0cnVlLCJpYXQiOjE3MTI5MTYwNTYsImV4cCI6MTc0NDQ1MjA1Nn0.dfDN0S_-htGFENo2FhJD3Cj9CKuubl2GYsm_Me5sYDc";
+            console.log(token)
+            console.log(id)
+            console.log(user)
+            await fetch(
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/users/update/${id}`,
+                {
+                    method: "PUT",
+                    cache: "no-store",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        "name": user.name,
+                        "surname": user.surname,
+                        "email": user.email,
+                        "address": user.address,
+                        "postalCode": user.postalCode,
+                        "town": user.town,
+                        "active": user.phone,
+                    })
+                }
+            );
+        } catch (error) {
+            console.error("Erreur lors de la modification de l'utilisateur", error);
+        }
+    };
+
     const handleChange = (e) => {
-        setUserForm({ ...userForm, [e.target.name]: e.target.value });
+        setUser({ ...user, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = (e) => {
@@ -55,7 +90,7 @@ const UserDetailPage = () => {
     };
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto bg-gray-100">
             <TitlePage title="Modification de l'utilisateur" />
             <div className="min-h-screen">
                 <div className="mb-8">
@@ -67,7 +102,7 @@ const UserDetailPage = () => {
                                 <Input
                                     label={"Nom de l'utilisateur"}
                                     name={"surname"}
-                                    value={userForm.surname}
+                                    value={user.surname}
                                     placeholder={user.surname}
                                     type={"text"}
                                     onChange={(e) => handleChange(e)}
@@ -80,7 +115,7 @@ const UserDetailPage = () => {
                                 <Input
                                     label={"Prenom"}
                                     name={"name"}
-                                    value={userForm.name}
+                                    value={user.name}
                                     placeholder={user.name}
                                     type={"text"}
                                     onChange={(e) => handleChange(e)}
@@ -93,7 +128,7 @@ const UserDetailPage = () => {
                                 <Input
                                     label={"Email"}
                                     name={"email"}
-                                    value={userForm.email}
+                                    value={user.email}
                                     placeholder={user.email}
                                     type={"text"}
                                     onChange={(e) => handleChange(e)}
@@ -106,7 +141,7 @@ const UserDetailPage = () => {
                                 <Input
                                     label={"Adresse"}
                                     name={"adresse"}
-                                    value={userForm.address}
+                                    value={user.address}
                                     placeholder={user.address}
                                     type={"text"}
                                     onChange={(e) => handleChange(e)}
@@ -119,7 +154,7 @@ const UserDetailPage = () => {
                                 <Input
                                     label={"Code Postal"}
                                     name={"postalCode"}
-                                    value={userForm.postalCode}
+                                    value={user.postalCode}
                                     placeholder={user.postalCode}
                                     type={"number"}
                                     onChange={(e) => handleChange(e)}
@@ -132,7 +167,7 @@ const UserDetailPage = () => {
                                 <Input
                                     label={"Commune"}
                                     name={"town"}
-                                    value={userForm.town}
+                                    value={user.town}
                                     placeholder={user.town}
                                     type={"text"}
                                     onChange={(e) => handleChange(e)}
@@ -145,7 +180,7 @@ const UserDetailPage = () => {
                                 <Input
                                     label={"Numéro de téléphone"}
                                     name={"town"}
-                                    value={userForm.phone}
+                                    value={user.phone}
                                     placeholder={user.phone}
                                     type={"text"}
                                     onChange={(e) => handleChange(e)}
@@ -157,17 +192,22 @@ const UserDetailPage = () => {
                             </div>
                             <br />
                             <div className="inline-flex space-x-4 content-around">
-                                <Link href={`/backoffice/users${params.id}`}>
+                                <Link href={`/backoffice/users`}>
                                     <Button
                                         title="Annuler"
                                         className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                                     />
                                 </Link>
-                                <Button
-                                    type="submit"
-                                    className="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
-                                    title="Enregistrer"
-                                />
+                                <Link href={`/backoffice/users`}>
+                                    <Button
+                                        type="submit"
+                                        className="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
+                                        onClick={() =>
+                                            handleUpdate(user._id)
+                                        }
+                                        title="Enregistrer"
+                                    />
+                                </Link>
                             </div>
                         </form>
                     )}
