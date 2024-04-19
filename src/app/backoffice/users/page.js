@@ -22,6 +22,7 @@ const UserBackOffice = () => {
     // useEffect(() => {
     //     getUsers(setUsersList);
     // }, [setUsersList]);
+    
 
     const handleDeleteUser = async (id) => {
         try {

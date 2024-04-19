@@ -100,30 +100,6 @@ const Table = ({ data, type, handleDelete }) => {
                            <th scope="col" className="px-6 py-3">Packshot</th>
                            <th scope="col" className="px-6 py-3">Prix</th>
                            <th scope="col" className="px-6 py-3">Actions</th>
-                            <th scope="col" className="px-6 py-3">
-                                ID
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Produit
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Description
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Image
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Statut
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Packshot
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Prix
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Actions
-                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -138,12 +114,8 @@ const Table = ({ data, type, handleDelete }) => {
                                 >
                                     {item._id}
                                 </th>
-                                <td className="px-6 py-4">{item.name}</td>
+                                <td aria-label="aaaaaa" className="px-6 py-4">{item.name}</td>
                                 <td className="px-6 py-4">{item.description}</td>
-                                <td className="px-6 py-4">
-                                    {item.description}
-                                </td>
-                                <td className="px-6 py-4">{item.image}</td>
                                 {item.active ? (
                                     <td className="px-6 py-4 text-green-500 dark:text-green-400">
                                         Actif
