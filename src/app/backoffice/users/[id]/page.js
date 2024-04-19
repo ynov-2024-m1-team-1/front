@@ -7,24 +7,13 @@ import Button from "@/components/UI/Button";
 import { useParams } from "next/navigation";
 import Input from "@/components/UI/Input";
 import { useEffect, useState } from "react";
+import { getCookie } from "cookies-next";
 
 const UserDetailPage = () => {
     const params = useParams();
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
-    // const [userForm, setUserForm] = useState({
-    //     id: "",
-    //     name: "",
-    //     surname: "",
-    //     email: "",
-    //     address: "",
-    //     postalCode: 0,
-    //     town: "",
-    //     phone: "",
-    //     admin: false,
-    //     wishlist: "",
-    //     orders: "",
-    // });
+    
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -52,10 +41,7 @@ const UserDetailPage = () => {
 
     const handleUpdate = async (id) => {
         try {
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmM1NTJlNzE5ZTYwZTQ0Mjc3ZTI0MyIsImFkbWluIjp0cnVlLCJpYXQiOjE3MTI5MTYwNTYsImV4cCI6MTc0NDQ1MjA1Nn0.dfDN0S_-htGFENo2FhJD3Cj9CKuubl2GYsm_Me5sYDc";
-            console.log(token)
-            console.log(id)
-            console.log(user)
+            const token = getCookie("token");
             await fetch(
                 `${process.env.NEXT_PUBLIC_API_ENDPOINT}/users/update/${id}`,
                 {

@@ -8,22 +8,12 @@ import Link from "next/link";
 import TitlePage from "@/components/UI/TitlePage";
 import Button from "@/components/UI/Button";
 import Input from "@/components/UI/Input";
-import handleUpdate from "../page.js"
-import { stringify } from "postcss";
+import { getCookie } from "cookies-next";
 
 const Product = () => {
     const params = useParams();
     const [loading, setLoading] = useState(true);
     const [product, setProduct] = useState(null);
-    // const [productForm, setProductForm] = useState({
-    //     id: "",
-    //     name: "",
-    //     description: "",
-    //     image: "",
-    //     active: false,
-    //     packshot: "",
-    //     price: 0,
-    // });
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -55,7 +45,7 @@ const Product = () => {
 
     const handleUpdate = async (id) => {
         try {
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmM1NTJlNzE5ZTYwZTQ0Mjc3ZTI0MyIsImFkbWluIjp0cnVlLCJpYXQiOjE3MTI5MTYwNTYsImV4cCI6MTc0NDQ1MjA1Nn0.dfDN0S_-htGFENo2FhJD3Cj9CKuubl2GYsm_Me5sYDc";
+            const token = getCookie("token");
             console.log(product)
             await fetch(
                 `${process.env.NEXT_PUBLIC_API_ENDPOINT}/products/update/${id}`,

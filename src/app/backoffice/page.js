@@ -1,15 +1,7 @@
 "use client";
 import TitlePage from "@/components/UI/TitlePage";
-import { useEffect } from "react";
 
 const BackOffice = () => {
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            const user = parseJwt(token);
-        }
-    }, []);
-
     const parseJwt = (token) => {
         const base64Url = token.split(".")[1];
         const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");

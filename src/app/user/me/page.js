@@ -13,7 +13,8 @@ const GetMe = () => {
     const router = useRouter();
 
     const fetchUser = async () => {
-        const token = getCookie('token');   
+        const token = getCookie('token');  
+        console.log(token); 
         if (token) {
             try {
                 const response = await getMe(token);
@@ -56,7 +57,6 @@ const GetMe = () => {
                             <span className="font-semibold">Email:</span>{" "}
                             {user.email}
                         </p>
-                        {/* Autres informations de l'utilisateur si nécessaire */}
                     </div>
                     <div className="mt-6 flex justify-center space-x-4">
                         <Button

@@ -4,6 +4,7 @@ import TitlePage from "@/components/UI/TitlePage";
 import { getCheckoutSession } from "@/services/api/checkoutSession.api";
 import { useRouter } from "next/navigation";
 import { getProduct } from "@/services/api/product.api";
+import { hasCookie } from "cookies-next";
 
 const Cart = () => {
     const [product, setProduct] = useState(null);
@@ -47,8 +48,8 @@ const Cart = () => {
     const checkout = async (e) => {
         e.preventDefault();
 
-        const token = localStorage.getItem("token");
-        if (!token) {
+        
+        if (!hasCookie("token")) {
             router.push("/auth/login");
             return;
         }

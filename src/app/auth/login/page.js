@@ -14,7 +14,7 @@ const Login = () => {
   
   const submitLogin = (e) => {
     e.preventDefault();
-    fetch('/api/auth', {
+    fetch('/api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
