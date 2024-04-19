@@ -37,7 +37,7 @@ const Index = ({ product }) => {
                 <p className="font-semibold font-s">{product.price} €</p>
                 <div className="opacity-0 group-hover/card:opacity-100 transition ease-in-out delay-150 flex justify-center space-x-4">
                     <button
-                        className="mt-4 inline-flex items-center px-4 py-3 bg-white"
+                        className="mt-4 inline-flex items-center px-4 py-3 bg-white transform transition-transform hover:scale-90 active:scale-85"
                         onClick={(e) => {}}
                     >
                         <Image
@@ -55,7 +55,7 @@ const Index = ({ product }) => {
                     </Link>
 
                     <button
-                        className="mt-4 inline-flex items-center px-4 py-3 bg-white"
+                        className="mt-4 inline-flex items-center px-4 py-3 bg-white transform transition-transform hover:scale-90 active:scale-85"
                         onClick={(e) => {
                             addItemToCart(product._id);
                         }}
