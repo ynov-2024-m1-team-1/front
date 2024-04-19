@@ -99,6 +99,7 @@ const Cart = () => {
                                             className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900"
                                             key={index}
                                         >
+                                            {console.log(item)}
                                             <td className="px-6 py-4">
                                                 {index + 1}
                                             </td>
