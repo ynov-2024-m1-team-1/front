@@ -9,6 +9,7 @@ import menu from "@/data/menu.json";
 import menuAdmin from "@/data/menuAdmin.json";
 import Button from "@/components/UI/Button";
 import { jwtDecode } from "jwt-decode";
+import { cookies } from 'next/headers';
 
 const Index = () => {
     const [userToken, setUserToken] = useState(null);
@@ -16,7 +17,7 @@ const Index = () => {
     const router = useRouter();
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
+        const token = cookies.get('token');
         
         if (token) {
             setUserToken(token);

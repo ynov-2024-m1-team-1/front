@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import Input from '@/components/UI/Input';
 import Button from '@/components/UI/Button';
-import { login } from "@/services/api/auth.api";
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+// import { loginCreateCookieToken } from "@/app/api/auth/route";
 
 
 const Login = () => {
@@ -19,33 +19,37 @@ const Login = () => {
   useEffect(() => {
     if (token) {
       setLoggedIn(true);
-      localStorage.setItem("token", token);
-      router.push("/shop");
+      // localStorage.setItem("token", token);
+      // router.push("/shop");
     } else {
       setLoggedIn(false);
-      localStorage.removeItem("token");
+      // localStorage.removeItem("token");
     }
   }, [token, router]);
 
-
-  const fetchUser = async () => {
-    try {
-      const response = await login({ email, password });
-      if (response.code === 200) {
-        setToken(response.data);
-        return;
-      } 
-      setError(response.message);
-      
-    } catch (error) {
-      setError(error);
-      console.error(error);
-    }
-  };
   
   const submitLogin = (e) => {
     e.preventDefault();
-    fetchUser();
+    fetch('/api/auth', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    }).then((res) => {
+      return res.json();
+    }).then((data) => {
+      if (data.success) {
+        
+        router.push("/backoffice/users");
+      }
+      console.log("coucou2",data);
+    }).catch((error) => {
+      console.error('Error:', error);
+    });
+
+    
+
   };
  
   return (
