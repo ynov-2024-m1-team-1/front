@@ -3,7 +3,6 @@ import { getProducts } from "@/services/api/product.api.js";
 import Alert from "@/components/UI/Alert";
 import ProductsGrid from "@/components/products/ProductsGrid";
 import TitlePage from "@/components/UI/TitlePage";
-import ProductsCounter from "@/components/products/ProductsCounter";
 
 export default async function Page({
     searchParams,
@@ -18,7 +17,6 @@ export default async function Page({
     return (
         <div className="container mx-auto">
             <TitlePage title="Shop" />
-            <ProductsCounter productsLength={response.data.length} />
             <ProductsGrid products={response.data.products} />
             <div className="flex justify-center mb-24">
                 {
