@@ -14,8 +14,8 @@ const Table = ({ data, type, handleDelete }) => {
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             {type === "user" && (
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead className="text-s text-white uppercase bg-neutral-900 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
+                    <thead className="bg-neutral-900 dark:bg-gray-700 dark:text-gray-400 text-white text-center">
+                        <tr className="text-s text-white uppercase bg-neutral-900 dark:bg-gray-700 dark:text-gray-400">
                             <th scope="col" className="px-6 py-3">
                                 Id
                             </th>
@@ -73,16 +73,13 @@ const Table = ({ data, type, handleDelete }) => {
                             <th scope="row" className="px-6 py-3 uppercase">
                                 Total Utilisateur
                             </th>
-                            <td className="px-6 py-3 font-semibold">
+                            <td className="px-6 py-3">
                                 {items.length}
                             </td>
-                            <td
-                                colSpan="2"
-                                className="px-6 py-3 uppercase font-semibold"
-                            >
+                            <td className="px-6 py-3">
                                 Total Admin
                             </td>
-                            <td className="px-6 py-3 text-green-400 font-semibold">
+                            <td className="px-6 py-3">
                                 {items.filter((user) => user.isAdmin).length}
                             </td>
                         </tr>
@@ -161,8 +158,7 @@ const Table = ({ data, type, handleDelete }) => {
                             </td>
                             <td
                                 colSpan="2"
-                                className="px-6 py-3 uppercase font-semibold"
-                            >
+                                className="px-6 py-3 uppercase font-semibold">
                                 Total actif
                             </td>
                             <td className="px-6 py-3 text-green-400 font-semibold">
@@ -171,10 +167,7 @@ const Table = ({ data, type, handleDelete }) => {
                                         .length
                                 }
                             </td>
-                            <td
-                                colSpan="2"
-                                className="px-6 py-3 uppercase font-semibold"
-                            >
+                            <td className="px-6 py-3 uppercase font-semibold">
                                 Total inactif
                             </td>
                             <td className="px-6 py-3 uppercase text-red-400 font-semibold">
