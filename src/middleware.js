@@ -3,27 +3,34 @@ import { NextRequest } from "next/server";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 
+//TODO: change url for production
 export function middleware(request) {
     const token = request.cookies.get('token');
-    console.log("token", token);
+    
+    if (!token) {
+        // return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`);
+        return NextResponse.redirect(`http://localhost:3000/auth/login`);
+    }
+    
+    try {
+        const decodedToken= jwt.decode(token.value)
+        console.log("decondedToken", decodedToken);
 
-    // If the token is not present, redirect to the login page
-    // if decriped token is not valid, redirect to the login page
-    // if decriped token is valid, and is admin, redirect to the backoffice page 
-    // if not admin, redirect to the user page
-
-
-
-    // if (token && ) {}
-
-
-    // if (!token) {
-    //     return NextResponse.redirect(new URL('/backoffice', request.url).toString());
-    // }
-    // else {
-    //     return NextResponse.next();
-    // }
-}
+        if (decodedToken.admin) {
+            // return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BACKEND_URL}/backoffice/home`);
+            return NextResponse.redirect(`http://localhost:3000/backoffice/home`);
+        } else if (!decodedToken.admin){
+            // return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/me`);
+            return NextResponse.redirect(`http://localhost:3000/user/me`);
+        } else {
+            return NextResponse.next();
+        }
+    } catch (error) {
+        console.error("Token verification error:", error);
+        // return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`);
+        return NextResponse.redirect(`http://localhost:3000/auth/login`);
+    }
+};
 
 // See "Matching Paths" below to learn more
 export const config = {
