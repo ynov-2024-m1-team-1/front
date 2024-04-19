@@ -102,6 +102,41 @@ const Table = ({ data, type, handleDelete }) => {
                     </tfoot>
                 </table>
             )}
+            {type === 'whishlist' && (
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead className='text-s text-white uppercase bg-neutral-900 dark:bg-gray-700 dark:text-gray-400'>
+                        <tr>
+                           <th scope="col" className="px-6 py-3">Produit</th>
+                           <th scope="col" className="px-6 py-3">Description</th>
+                           <th scope="col" className="px-6 py-3">Packshot</th>
+                           <th scope="col" className="px-6 py-3">Prix</th>
+                           <th scope="col" className="px-6 py-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {items.products.map(item => (
+                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900" key={item._id}>
+                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:bg-gray-800">{item._id}</th>
+                                <td className="px-6 py-4">{item.name}</td>
+                                <td className="px-6 py-4">{item.description}</td>                                
+                                <td className="px-6 py-4">{item.packshot}</td>
+                                <td className="px-6 py-4">{item.price}€</td>
+                                <td className="px-6 py-4">
+                                    <div className="inline-flex space-x-4">
+                                        <Button className="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleDelete(item._id)} title="Supprimer" />
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                    <tfoot className="bg-neutral-900 dark:bg-gray-700 dark:text-gray-400 text-white text-center">
+                        <tr className="text-s text-white uppercase bg-neutral-900 dark:bg-gray-700 dark:text-gray-400">
+                            <th scope="row" className="px-6 py-3 uppercase">Total de produit</th>
+                            <td className="px-6 py-3 font-semibold">{items.products.length}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            )}
         </div>
     );
 };
