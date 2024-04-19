@@ -9,23 +9,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [token, setToken] = useState("");
 
   const router = useRouter(); 
-
-  
-  useEffect(() => {
-    if (token) {
-      setLoggedIn(true);
-      // localStorage.setItem("token", token);
-      // router.push("/shop");
-    } else {
-      setLoggedIn(false);
-      // localStorage.removeItem("token");
-    }
-  }, [token, router]);
-
   
   const submitLogin = (e) => {
     e.preventDefault();
@@ -39,14 +24,12 @@ const Login = () => {
       return res.json();
     }).then((data) => {
       if (data.success) {
-        router.push("/backoffice/users");
+        router.push("/shop");
       }
     }).catch((error) => {
       console.error('Error:', error);
+      setError(error.message);
     });
-
-    
-
   };
  
   return (
