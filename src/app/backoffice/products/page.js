@@ -62,7 +62,7 @@ const ProductBackOffice = () => {
     }, []);
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto bg-gray-100">
             <TitlePage title="Liste des produits" />
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error.message}</p>}
