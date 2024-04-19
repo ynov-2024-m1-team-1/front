@@ -1,36 +1,15 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useState, useEffect } from "react";
-import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import NavMenu from "@/components/UI/NavMenu";
 import menu from "@/data/menu.json";
-import menuAdmin from "@/data/menuAdmin.json";
 import Button from "@/components/UI/Button";
-import { jwtDecode } from "jwt-decode";
+
+import { hasCookie } from 'cookies-next';
 
 const Index = () => {
-    const [userToken, setUserToken] = useState(null);
-    const [isAdmin, setIsAdmin] = useState(false);
-    const router = useRouter();
-
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        
-        if (token) {
-            setUserToken(token);
-            const decodedToken = jwtDecode(token);
-
-            if (decodedToken && decodedToken.admin) {
-                setIsAdmin(true);
-            } 
-        }
-    }, []);
     
     const logout = () => {
-        localStorage.removeItem("token");
-        setUserToken(null);
         router.push("/shop");
     };
 
@@ -38,26 +17,16 @@ const Index = () => {
         <header className="bg-white border-b border-color-black">
             <ul className="flex pl-6 pr-6 items-center justify-between">
                 <li className="flex lg:flex-1">
-                    {
-                        isAdmin ? (
-                            <Link href="/backoffice/home">
-                                <span className="font-semibold text-2xl font-bold">
-                                    BackOffice - Admin
-                                </span>
-                            </Link>
-                        ) : (
-                            <Link href="/">
-                                <span className="font-semibold text-2xl font-bold">
-                                    mystore
-                                </span>
-                            </Link>
-                        )
-                    }
+                    <Link href="/">
+                        <span className="font-semibold text-2xl font-bold">
+                            mystore
+                        </span>
+                    </Link>
                 </li>
                 <li>
                     <div className='flex items-center'>
-                        <NavMenu menu={isAdmin ? menuAdmin : menu} color="grey" />
-                        {userToken ? (
+                        <NavMenu menu={menu} color="grey" />
+                        {hasCookie('token') ? (
                             <div className='justify-center'>
                                 <Link href="/user/me" className='text-md font-normal leading-6 text-base hover:text-slate-500'>  
                                     Account

@@ -2,8 +2,8 @@
 import TitlePage from "@/components/UI/TitlePage";
 import React, { useState, useEffect } from "react";
 import UserTable from "@/components/UI/Table";
-import useFetch from "@/hooks/useFetch";
 import { getUsers } from "@/services/api/user.api";
+import { getCookie } from "cookies-next";
 
 const UserBackOffice = () => {
     const [usersList, setUsersList] = useState(null);
@@ -12,8 +12,7 @@ const UserBackOffice = () => {
         getUsers(setUsersList);
     }, []);
 
-    const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmM1NTJlNzE5ZTYwZTQ0Mjc3ZTI0MyIsImFkbWluIjp0cnVlLCJpYXQiOjE3MTI5MTYwNTYsImV4cCI6MTc0NDQ1MjA1Nn0.dfDN0S_-htGFENo2FhJD3Cj9CKuubl2GYsm_Me5sYDc";
+    const token = getCookie("token");
 
     const confirmDelete = (itemId) => {
         if (
@@ -22,9 +21,6 @@ const UserBackOffice = () => {
             handleDeleteUser(itemId);
         }
     };
-    // useEffect(() => {
-    //     getUsers(setUsersList);
-    // }, [setUsersList]);
 
     const handleDeleteUser = async (id) => {
         try {

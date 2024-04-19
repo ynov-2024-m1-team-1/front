@@ -4,6 +4,7 @@ import TitlePage from "@/components/UI/TitlePage";
 import { useEffect, useState } from "react";
 import ProductTable from "@/components/UI/Table";
 import useFetch from "@/hooks/useFetch";
+import { getCookie } from "cookies-next";
 
 const ProductBackOffice = () => {
     const { fetchData, data, error, loading, typeofError } = useFetch({
@@ -30,7 +31,7 @@ const ProductBackOffice = () => {
 
     const handleDeleteProduct = async (id) => {
         try {
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmM1NTJlNzE5ZTYwZTQ0Mjc3ZTI0MyIsImFkbWluIjp0cnVlLCJpYXQiOjE3MTI5MTYwNTYsImV4cCI6MTc0NDQ1MjA1Nn0.dfDN0S_-htGFENo2FhJD3Cj9CKuubl2GYsm_Me5sYDc";
+            const token = getCookie("token");
             await fetch(
                 `${process.env.NEXT_PUBLIC_API_ENDPOINT}/products/delete/${id}`,
                 {
@@ -52,10 +53,6 @@ const ProductBackOffice = () => {
             console.error("Erreur lors de la suppression du produit", error);
         }
     };
-
-    
-
-    
 
     useEffect(() => {
         fetchData();
