@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Button from "@/components/UI/Button";
+import styles from './styles.css';
 
 const Table = ({ data, type, handleDelete }) => {
     const items = data?.data;
@@ -92,30 +93,13 @@ const Table = ({ data, type, handleDelete }) => {
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-s text-white uppercase bg-neutral-900 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" className="px-6 py-3">
-                                ID
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Produit
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Description
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Image
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Statut
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Packshot
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Prix
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Actions
-                            </th>
+                           <th scope="col" className="px-6 py-3">ID</th>
+                           <th scope="col" className="px-6 py-3">Produit</th>
+                           <th scope="col" className="px-6 py-3">Description</th>
+                           <th scope="col" className="px-6 py-3">Statut</th>
+                           <th scope="col" className="px-6 py-3">Packshot</th>
+                           <th scope="col" className="px-6 py-3">Prix</th>
+                           <th scope="col" className="px-6 py-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -130,11 +114,8 @@ const Table = ({ data, type, handleDelete }) => {
                                 >
                                     {item._id}
                                 </th>
-                                <td className="px-6 py-4">{item.name}</td>
-                                <td className="px-6 py-4">
-                                    {item.description}
-                                </td>
-                                <td className="px-6 py-4">{item.image}</td>
+                                <td aria-label="aaaaaa" className="px-6 py-4">{item.name}</td>
+                                <td className="px-6 py-4">{item.description}</td>
                                 {item.active ? (
                                     <td className="px-6 py-4 text-green-500 dark:text-green-400">
                                         Actif
@@ -144,7 +125,7 @@ const Table = ({ data, type, handleDelete }) => {
                                         Inactif
                                     </td>
                                 )}
-                                <td className="px-6 py-4">{item.packshot}</td>
+                                <td className="px-6 py-4"><img className="w-16 h-16 justify-center" src={item.packshot}/></td>
                                 <td className="px-6 py-4">{item.price}€</td>
                                 <td className="px-6 py-4">
                                     <div className="inline-flex space-x-4">
@@ -166,6 +147,8 @@ const Table = ({ data, type, handleDelete }) => {
                                     </div>
                                 </td>
                             </tr>
+
+                            
                         ))}
                     </tbody>
                     <tfoot className="bg-neutral-900 dark:bg-gray-700 dark:text-gray-400 text-white text-center">
