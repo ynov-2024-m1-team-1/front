@@ -16,7 +16,7 @@
         "path": "/shop"
     },
     {
-        "name": "Panier",
+        "name": "Cart",
         "path": "/cart"
     }
 ]

@@ -4,6 +4,7 @@ import TitlePage from "@/components/UI/TitlePage";
 import { useEffect, useState } from "react";
 import ProductTable from "@/components/UI/Table";
 import useFetch from "@/hooks/useFetch";
+import { getCookie } from "cookies-next";
 
 const ProductBackOffice = () => {
     const { fetchData, data, error, loading, typeofError } = useFetch({
@@ -21,14 +22,24 @@ const ProductBackOffice = () => {
         }
     }, [data]);
 
+    const confirmDelete = (itemId) => {
+        if (window.confirm("Êtes-vous sûr de vouloir supprimer cet élément ?")) {
+            handleDeleteProduct(itemId);
+        }
+    };
+    
+
     const handleDeleteProduct = async (id) => {
         try {
+            const token = getCookie("token");
             await fetch(
                 `${process.env.NEXT_PUBLIC_API_ENDPOINT}/products/delete/${id}`,
                 {
                     method: "DELETE",
+                    cache: "no-store",
                     headers: {
                         "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
                     },
                 }
             );
@@ -37,6 +48,7 @@ const ProductBackOffice = () => {
             );
             setProductsList(updatedProducts);
             console.log("Suppression du produit", id);
+            window.location.reload();
         } catch (error) {
             console.error("Erreur lors de la suppression du produit", error);
         }
@@ -44,10 +56,10 @@ const ProductBackOffice = () => {
 
     useEffect(() => {
         fetchData();
-    }, [fetchData]);
+    }, []);
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto bg-gray-100">
             <TitlePage title="Liste des produits" />
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error.message}</p>}
@@ -61,7 +73,7 @@ const ProductBackOffice = () => {
                     <ProductTable
                         data={data}
                         type="product"
-                        handleDelete={(id) => handleDeleteProduct(id)}
+                        handleDelete={(id) => confirmDelete(id)}
                     />
                 </div>
             </div>
